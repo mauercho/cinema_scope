@@ -1,27 +1,44 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">
+        <img src="@/assets/logo.png" alt="Logo" id="logo">
+      </a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <Router-link class="nav-link" :to="{ name: 'home' }">현재상영중인 영화</Router-link>
+          </li>
+          <li class="nav-item">
+            <Router-link class="nav-link" :to="{ name: 'recommended' }">영화 추천받기</Router-link>
+          </li>
+          <li class="nav-item">
+            <Router-link class="nav-link" :to="{ name: 'myinfo' }">내 프로필</Router-link>
+          </li>
+          <li class="nav-item">
+            <Router-link class="nav-link" :to="{ name: 'signup' }">회원가입</Router-link>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="영화 검색" aria-label="Search">
+        </form>
+      </div>
+    </nav>
   </header>
-
-  <RouterView />
+  <Router-view />
 </template>
 
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
+</script>
+
 <style scoped>
-header {
+#logo {
+  width: 3rem; /* 원하는 너비로 설정 */
+  height: auto; /* 높이는 자동으로 설정하여 비율을 유지 */
+}
+/* header {
   line-height: 1.5;
   max-height: 100vh;
 }
@@ -81,5 +98,5 @@ nav a:first-of-type {
     padding: 1rem 0;
     margin-top: 1rem;
   }
-}
+} */
 </style>
