@@ -29,26 +29,16 @@ def detail(request, movie_pk):
 # 영화에 대해 좋아요 누르기
 @api_view(['POST'])
 def movie_likes(request, movie_pk):
-    # movie = Movie.objects.get(pk=movie_pk)
+    movie = Movie.objects.get(pk=movie_pk)
 
-    # like_user = request.user
-    # like_movies = like_user.like_movies.all()
-
-    # movielikes = Movielike.objects.get(like_user_id=request.user)
-    # print(movielikes)
-    # print(movielikes.movie.all())
-
-    # if movie in like_movies.movielike_set.filter(likeability=1):
-    #     # print(like_movies)
-    #     print('좋아요 빼기')
-
-    # if request.user in movielikes.like_user.all():
-    # movie.like_users.remove(request.user)
-    # print('좋아요 빼기')
-    # else:
-        # movielike = Movielike(movie=movie, like_user=request.user, likeability=1)
-        # movielike.save()
-        # print('좋아요 누르기')
+    if request.user in movie.like_users.all():
+        movie.like_users.remove(request.user)
+        is_liked = False
+        print('좋아요 취소')
+    else:
+        movie.like_users.add(request.user)
+        is_liked = True
+        print('좋아요')
 
 
-    return JsonResponse({ 'like': 'OK' })
+    return JsonResponse({'is_liked': is_liked})

@@ -17,10 +17,11 @@ def profile(request, user_pk):
     try:
         profile = Profile.objects.get(pk=user_pk)
     except Profile.DoesNotExist:
-        profile = None
+        profile = { 'bio': None, 'profile_pic': None }
 
     if request.method == 'GET':
         serializer = ProfileSerializer(profile)
+        # print(serializer)
         return JsonResponse(serializer.data)
     
     elif request.method == 'POST':
