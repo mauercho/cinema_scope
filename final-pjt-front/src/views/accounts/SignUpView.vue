@@ -1,21 +1,23 @@
 <template>
 	<div>
-		<h1>회원가입</h1>
-		<form @submit.prevent="signup">
-			<div>
-				<label for="username">username : </label>
-				<input type="text" v-model.trim="username" id="username">
-			</div>
-			<div>
-				<label for="password1">password : </label>
-				<input type="password" v-model.trim="password1" id="password1">
-			</div>
-			<div>
-				<label for="password2">password 확인 : </label>
-				<input type="password" v-model.trim="password2" id="password2">
-			</div>
-			<input type="submit">
-		</form>
+		<div class="container">
+			<h1>회원가입</h1>
+			<form @submit.prevent="signup">
+				<div>
+					<label for="username">username : </label>
+					<input type="text" v-model.trim="username" id="username">
+				</div>
+				<div>
+					<label for="password1">password : </label>
+					<input type="password" v-model.trim="password1" id="password1">
+				</div>
+				<div>
+					<label for="password2">password 확인 : </label>
+					<input type="password" v-model.trim="password2" id="password2">
+					<input type="submit">
+				</div>
+			</form>
+		</div>
 	</div>
 </template>
 

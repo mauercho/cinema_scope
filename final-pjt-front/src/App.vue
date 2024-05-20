@@ -1,36 +1,48 @@
 
 <template>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/">
-        <img src="@/assets/logo.png" alt="Logo" id="logo">
-      </a>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <Router-link class="nav-link" :to="{ name: 'home' }">현재상영중인 영화</Router-link>
-          </li>
-          <li class="nav-item">
-            <Router-link class="nav-link" :to="{ name: 'recommended' }">영화 추천받기</Router-link>
-          </li>
-          <li class="nav-item">
-            <Router-link class="nav-link" :to="{ name: 'myinfo' }">내 프로필</Router-link>
-          </li>
-          <li class="nav-item">
-            <Router-link class="nav-link" :to="{ name: 'signup' }">회원가입</Router-link>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="영화 검색" aria-label="Search">
-        </form>
-      </div>
-    </nav>
+    <div class ="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <Router-link class="navbar-brand" :to="{ name: 'home' }"><img src="@/assets/logo.png" alt="Logo" id="logo"></Router-link>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <Router-link class="nav-link" :to="{ name: 'home' }">현재상영중인 영화</Router-link>
+            </li>
+            <li class="nav-item">
+              <Router-link class="nav-link" :to="{ name: 'recommended' }">영화 추천받기</Router-link>
+            </li>
+            <!-- <li class="nav-item">
+              <Router-link class="nav-link" :to="{ name: 'myinfo', params: {userid: store.userId}}">내 프로필</Router-link>
+            </li> -->
+          </ul>
+          <div v-if="store.token === null">
+            <Router-link class="btn btn-outline-primary mr-5" :to="{ name: 'signup' }">회원가입</Router-link>
+            <Router-link class="btn btn-outline-secondary" :to="{ name: 'login' }">로그인</Router-link>
+          </div>
+          <div v-else>
+            <Router-link class="btn btn-outline-primary mr-5" :to="{ name: 'myinfo'}">내 정보</Router-link>
+            <Router-link class="btn btn-outline-secondary" @click="logout">로그아웃</Router-link>
+          </div>
+          <!-- <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="영화 검색" aria-label="Search">
+          </form> -->
+        </div>
+      </nav>
+    </div>
   </header>
   <Router-view />
 </template>
 
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { useMovieStore } from '@/stores/counter'
+const store = useMovieStore()
+
+// const logout = function(){
+
+//   console.log(store.token.value)
+// }
 </script>
 
 <style scoped>
