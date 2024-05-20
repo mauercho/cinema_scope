@@ -22,7 +22,8 @@
           </div>
           <div v-else>
             <Router-link class="btn btn-outline-primary mr-5" :to="{ name: 'myinfo'}">내 정보</Router-link>
-            <Router-link class="btn btn-outline-secondary" @click="logout">로그아웃</Router-link>
+            <!-- <Router-link class="btn btn-outline-secondary" :to="{name: 'logout'}">로그아웃</Router-link> -->
+            <button class="btn btn-outline-secondary" @click="handleLogout">로그아웃</button>
           </div>
           <!-- <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="영화 검색" aria-label="Search">
@@ -37,12 +38,14 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { useMovieStore } from '@/stores/counter'
+import { useRouter } from 'vue-router'
+
 const store = useMovieStore()
-
-// const logout = function(){
-
-//   console.log(store.token.value)
-// }
+const router = useRouter()
+const handleLogout = () => {
+  store.logOut()
+  router.push({ name: 'home' })
+}
 </script>
 
 <style scoped>

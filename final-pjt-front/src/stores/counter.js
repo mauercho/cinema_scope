@@ -12,6 +12,7 @@ export const useMovieStore = defineStore('counter', () => {
   const token = ref(null)
   const userId = ref(null)
   const router = useRouter()
+  const isProfile = ref(false)
   const isLogin = computed(() => {
     if (token.value === null) {
       return false
@@ -19,6 +20,28 @@ export const useMovieStore = defineStore('counter', () => {
       return true
     }
   })
+
+  const getPerson = function() {
+    axios({
+      method: 'get',
+      url: `${API_URL}/accounts/profile/${userId.value}/`,
+    })
+    .then((response) => {
+      if (response.data.bio !== null) { // 프로필이 있을 떄
+        isProfile.value = true
+      }
+      else {
+        isProfile.value = false
+      }
+      // 프로필에 없을때는 false고 프로필을 만들어야함.
+      // console.log(response.data)
+      // console.log(response.data.bio)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
   const getMovies = function() {
     axios({
       method: 'get',
@@ -53,6 +76,20 @@ export const useMovieStore = defineStore('counter', () => {
       console.log(error)
     })
   }
+  const logOut = function() {
+    axios({
+      method: 'post',
+      url: `${API_URL}/accounts/logout/`,
+  })
+    .then((response) => {
+      console.log('로그아웃 성공!')
+      token.value = null
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
 
   const logIn = function (payload) {
     const { username, password } = payload
@@ -103,6 +140,6 @@ export const useMovieStore = defineStore('counter', () => {
       // })
   }
 
-  return { movies, getMovies, signUp, logIn, token, isLogin, API_URL, userId}
-})
+  return { movies, getMovies, signUp, logIn, token, isLogin, API_URL, userId, getPerson, logOut, isProfile}
+}, {persist: true})
 

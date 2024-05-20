@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
-import RecommendedView from '@/views/RecommendedView.vue'
-import NowFilmingMovieView from '@/views/NowFilmingMovieView.vue'
-import MovieDetailView from '@/views/MovieDetailView.vue'
+import RecommendedView from '@/views/RecommendedView.vue' //
+import NowFilmingMovieView from '@/views/NowFilmingMovieView.vue'//
+import MovieDetailView from '@/views/MovieDetailView.vue'//
 import LoginView from '@/views/accounts/LoginView.vue'
 import SignUpView from '@/views/accounts/SignUpView.vue'
-import UserInfoView from '@/views/accounts/UserInfoView.vue'
+import UserInfoView from '@/views/accounts/UserInfoView.vue'//
 import UserUpdateView from '@/views/accounts/UserUpdateView.vue'
 import MyInfoView from '@/views/accounts/MyInfoView.vue'
-
+import logoutView from '@/views/accounts/LogoutView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,6 +58,16 @@ const router = createRouter({
       name: 'myinfo',
       component: MyInfoView
     },
+    {
+      path: '/accounts/logout/',
+      name: 'logout',
+      component: logoutView,
+    },
+    {
+      path: '/accounts/editprofile/',
+      name: 'editprofile',
+      component: UserUpdateView,
+    }
   ]
 })
 

@@ -2,16 +2,36 @@
 	<div>
 		<div class="container">
 			<h1>회원정보</h1>
-			<p>회원정보 페이지입니다.</p>
+			<div class="container" v-if="!store.isProfile">
+				<p>유저 정보가 없습니다. ㅠㅠ 만들어주세요</p>
+				<button class="btn btn-outline-secondary" @click="editUser">유저 정보 입력</button>
+				<!-- <RouterLink :to="{ name: 'editprofile' }" class="btn btn-primary">프로필 수정</RouterLink> -->
+			</div>
+			<div v-else>
+				<!-- 유저정보가 있으면 들어갈곳 isProfile는 true일거임. -->
+			</div>
+			<!-- <Router-view /> -->
 		</div>
 	</div>
 </template>
 
 
 <script setup>
+import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { useMovieStore } from '@/stores/counter'
+const router = useRouter()
+const store = useMovieStore()
 
+const editUser = () => {
+	router.push({ name: 'editprofile' })
+}
+
+onMounted(() => {
+	store.getPerson()
+})
 </script>
-!
+
 <style scoped>
 
 </style>
