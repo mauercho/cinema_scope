@@ -17,14 +17,14 @@ class Movie(models.Model):
     release_date = models.DateField()
     poster_path = models.TextField()
     tmdb_id = models.IntegerField()
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, through='Movielike', related_name='like_movies')
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='like_movies')
     favorite_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='favorites')
 
 # 영화에 대해 좋아요/별로예요 표시
-class Movielike(models.Model):
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    like_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    likeability = models.IntegerField()
+# class Movielike(models.Model):
+#     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+#     like_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#     likeability = models.IntegerField()
 
 # 영화에 달린 리뷰
 class Review(models.Model):
