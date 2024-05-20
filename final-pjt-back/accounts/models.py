@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class User(AbstractUser):
-    pass
+    followings = models.ManyToManyField('self', symmetrical=False, related_name='followers')
 
 # 유저 각각의 프로필
 class Profile(models.Model):
