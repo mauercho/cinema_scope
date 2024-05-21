@@ -123,4 +123,5 @@ def review_likes(request, movie_pk, review_pk):
 ###### 영화 추천 받기 ######
 @api_view(['GET'])
 def recommend(request):
-    pass
+    open.api_key = "sk-proj-Vg67oj0tLNOVqO4HeyoJT3BlbkFJHOSZXr9VRLoPofam5kd9"
+    
