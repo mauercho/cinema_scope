@@ -18,24 +18,68 @@
 import { ref } from 'vue'
 import { useMovieStore } from '@/stores/counter'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
 
 const store = useMovieStore()
 const router = useRouter()
 const imagePreview = ref(null)
-const createProfile = function () {
+const selfIntroduction = ref(null)
 
+// const createProfile = function () {
+// 	axios({
+// 		method: 'post',
+// 		url: `${store.API_URL}/accounts/profile/${store.userId}/`,
+// 		headers: {
+// 			"Content-Type": "multipart/form-data"
+// 		},
+// 		data: {
+// 			bio: selfIntroduction.value,
+// 			profile_pic: imagePreview.value
+// 		},
+// 	})
+// 	.then((response) => {
+// 		console.log("프로필 수정 완료")
+// 		console.log(response)
+// 		router.push({ name: 'home' })
+// 	})
+// 	.catch((error) => {
+// 		console.log(error)
+// 	})
+// }
+
+// function previewImage(event) {
+//     const file = event.target.files[0]
+//     const reader = new FileReader()
+//     reader.onload = (e) => {
+//         imagePreview.value = e.target.result
+//     }
+//     reader.readAsDataURL(file)
+// }
+
+const createProfile = function () {
+    const formData = new FormData()
+    formData.append('bio', selfIntroduction.value)
+    formData.append('profile_pic', imagePreview.value)
+
+    axios({
+        method: 'post',
+        url: `${store.API_URL}/accounts/profile/${store.userId}/`,
+        data: formData,
+    })
+    .then((response) => {
+        console.log("프로필 수정 완료")
+        console.log(response)
+        router.push({ name: 'home' })
+    })
+    .catch((error) => {
+        console.log(error)
+    })
 }
 
 function previewImage(event) {
     const file = event.target.files[0]
-    const reader = new FileReader()
-    reader.onload = (e) => {
-        imagePreview.value = e.target.result
-    }
-    reader.readAsDataURL(file)
+    imagePreview.value = file
 }
-
-
 </script>
 
 <style scoped>

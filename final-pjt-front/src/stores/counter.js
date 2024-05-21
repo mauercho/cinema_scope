@@ -13,6 +13,9 @@ export const useMovieStore = defineStore('counter', () => {
   const userId = ref(null)
   const router = useRouter()
   const isProfile = ref(false)
+  const personBio = ref(null)
+  const personImage = ref(null)
+  const imageUrl = ref(null)
   const isLogin = computed(() => {
     if (token.value === null) {
       return false
@@ -20,6 +23,44 @@ export const useMovieStore = defineStore('counter', () => {
       return true
     }
   })
+  const getPersonProfile = function (){
+    // axios({
+    //   method: 'get',
+    //   url: `${API_URL}/accounts/profile/${userId.value}/`,
+    // })
+    // .then((response) => {
+    //   personBio.value = response.data.bio
+    //   axios({
+    //     method: 'get',
+    //     url: response.data.profile_pic,
+    //     responseType: 'blob'
+    //   })
+    //   .then((imageResponse) => {
+    //     imageUrl = URL.createObjectURL(imageResponse.data)
+    //     personImage.value = imageUrl
+    //     console.log(personImage.value)
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
+    // })
+    // .catch((error) => {
+    //   console.log(error)
+    // })
+    axios({
+      method: 'get',
+      url: `${API_URL}/accounts/profile/${userId.value}/`,
+    })
+    .then((response) => {
+      personBio.value = response.data.bio
+      personImage.value = response.data.profile_pic
+      console.log(personImage.value)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
 
   const getPerson = function() {
     axios({
@@ -32,6 +73,8 @@ export const useMovieStore = defineStore('counter', () => {
       }
       else {
         isProfile.value = false
+        personBio.value = null
+        personImage.value = null
       }
       // 프로필에 없을때는 false고 프로필을 만들어야함.
       // console.log(response.data)
@@ -140,6 +183,6 @@ export const useMovieStore = defineStore('counter', () => {
       // })
   }
 
-  return { movies, getMovies, signUp, logIn, token, isLogin, API_URL, userId, getPerson, logOut, isProfile}
+  return { movies, getMovies, signUp, logIn, token, isLogin, API_URL, userId, getPerson, logOut, isProfile, personBio, personImage, getPersonProfile, imageUrl}
 }, {persist: true})
 

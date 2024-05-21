@@ -40,12 +40,15 @@ import { RouterLink, RouterView } from 'vue-router'
 import { useMovieStore } from '@/stores/counter'
 import { useRouter } from 'vue-router'
 
+
 const store = useMovieStore()
 const router = useRouter()
 const handleLogout = () => {
   store.logOut()
   router.push({ name: 'home' })
 }
+
+
 </script>
 
 <style scoped>
