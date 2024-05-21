@@ -15,7 +15,7 @@ def profile(request, user_pk):
     person = get_user_model().objects.get(pk=user_pk)
     # 프로필이 아직 생성되지 않았을 때에는 None 값 할당
     try:
-        profile = Profile.objects.get(pk=user_pk)
+        profile = Profile.objects.get(user_id=user_pk)
     except Profile.DoesNotExist:
         profile = { 'bio': None, 'profile_pic': None }
 
