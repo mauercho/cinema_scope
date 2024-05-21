@@ -1,0 +1,143 @@
+[
+{
+    "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$600000$N9PO2vqvDwMMBG0n61p6qO$gpp4iN+noNd4sjauQZzXha2Whmo7fULWlt8JAYJU4WE=",
+        "last_login": "2024-05-21T04:08:19.789Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-05-21T02:34:57.018Z",
+        "groups": [],
+        "user_permissions": [],
+        "followings": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$600000$nlFZlBGsfXSNOQfQ104tbp$rQNrFigOxXoMH0/MLSESzFoJHc1lKjunwbo5jSp3SWs=",
+        "last_login": "2024-05-21T03:06:20.095Z",
+        "is_superuser": false,
+        "username": "이소라",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-05-21T02:47:34.415Z",
+        "groups": [],
+        "user_permissions": [],
+        "followings": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$600000$ewdnjKoYKIi7JeKWhngvXg$A2o4NJNTfTpPvWDE6UtQELiIUpG5MylRI9Gl6BlPzvc=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "조민우",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-05-21T02:48:57.919Z",
+        "groups": [],
+        "user_permissions": [],
+        "followings": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$600000$wgFfSa31xkiteNH9irMEcE$XhzNWwskDlQdRJ2QAHsIpSo6PWir9XB7TLVERHxoeAM=",
+        "last_login": "2024-05-21T03:56:22.358Z",
+        "is_superuser": false,
+        "username": "이지흔",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-05-21T02:50:20.048Z",
+        "groups": [],
+        "user_permissions": [],
+        "followings": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$600000$UgXAwyA73sTsn7afIqnSdd$vj4g1YZuIg5NprUQK85iW7qXKMoEuEeQVustQZ4fyvk=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "허지윤",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-05-21T04:08:44.450Z",
+        "groups": [],
+        "user_permissions": [],
+        "followings": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$600000$4EPzndB7Cw9KVs0zZRg618$vq/0OrBQF2M2mxz1NFDmoec0P09hQtL/M2lBs68jJTM=",
+        "last_login": "2024-05-21T04:09:56.326Z",
+        "is_superuser": false,
+        "username": "백수연",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-05-21T04:09:25.825Z",
+        "groups": [],
+        "user_permissions": [],
+        "followings": []
+    }
+},
+{
+    "model": "accounts.profile",
+    "pk": 1,
+    "fields": {
+        "user": 4,
+        "bio": "안녕하세요 지흔냥이입니다",
+        "profile_pic": "user_profile/NISI20230712_0001313626_web_Erk5Ctr.jpg"
+    }
+},
+{
+    "model": "accounts.profile",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "bio": "배고파",
+        "profile_pic": ""
+    }
+},
+{
+    "model": "accounts.profile",
+    "pk": 3,
+    "fields": {
+        "user": 5,
+        "bio": "나는 허지윤이다",
+        "profile_pic": ""
+    }
+}
+]
