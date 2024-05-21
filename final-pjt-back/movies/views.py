@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.response import Response
 import os
-import openai
+from openai import OpenAI
 
 
 
@@ -123,5 +123,11 @@ def review_likes(request, movie_pk, review_pk):
 ###### 영화 추천 받기 ######
 @api_view(['GET'])
 def recommend(request):
-    open.api_key = "sk-proj-Vg67oj0tLNOVqO4HeyoJT3BlbkFJHOSZXr9VRLoPofam5kd9"
-    
+    client = OpenAI(api_key = "sk-proj-Vg67oj0tLNOVqO4HeyoJT3BlbkFJHOSZXr9VRLoPofam5kd9")
+    completion = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": "내가 좋아하는 영화 추천 해줘"}
+        ]
+    )
+    return JsonResponse(completion.choices[0].message.content, safe=False)
