@@ -10,14 +10,23 @@ class MovieSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class MovieSimpleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Movie
+        fields = ('id', 'title', 'poster_path')
+
+
 class GenreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Genre
         fields = '__all__'
 
+
 class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
         fields = '__all__'
+        read_only_fields = ('user', 'movie')
