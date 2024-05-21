@@ -1,22 +1,29 @@
 from django.shortcuts import render
-from .models import Movie, Review
 from django.contrib.auth import get_user_model
+from django.http import JsonResponse
+from .models import Movie, Review
 from .serializers import MovieSerializer, ReviewSerializer
 from rest_framework.decorators import api_view
 from rest_framework import status
-from django.http import JsonResponse
 from rest_framework.response import Response
+import os
+import openai
+
+
 
 
 # Create your views here.
-# 영화 리스트 조회
+# 메인 영화 리스트 조회
 @api_view(['GET'])
 def list(request):
-    movies = Movie.objects.filter(id__lt=100)
+    movies = Movie.objects.filter(id__lt=21)
     serializer = MovieSerializer(movies, many=True)
-    # return Response(serializer.data)
     return JsonResponse(serializer.data, safe=False)
 
+
+
+
+###### 단일 영화 관련 #######
 
 # 단일 영화 디테일 조회
 @api_view(['GET'])
@@ -108,3 +115,12 @@ def review_likes(request, movie_pk, review_pk):
         is_liked = True
         print('좋아요')
     return JsonResponse({'is_liked': is_liked})
+
+
+
+
+
+###### 영화 추천 받기 ######
+@api_view(['GET'])
+def recommend(request):
+    pass
