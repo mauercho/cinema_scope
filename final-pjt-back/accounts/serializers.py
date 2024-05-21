@@ -9,10 +9,10 @@ class ProfileSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
         favorites = MovieSimpleSerializer(many=True, read_only=True)
         like_movies = MovieSimpleSerializer(many=True, read_only=True)
-        like_reviews = ReviewSerializer(many=True, read_only=True)
+        review_set = ReviewSerializer(many=True, read_only=True)
         class Meta:
             model = User
-            fields = ('favorites', 'like_movies', 'like_reviews')
+            fields = ('favorites', 'like_movies', 'review_set')
     user = UserSerializer(read_only=True)
 
 
