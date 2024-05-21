@@ -1,7 +1,9 @@
 <template>
 	<div>
 		<img v-if="store.personImage" :src="`${store.API_URL}${store.personImage}`" alt="no image">
+		<br>
 		<h3>username</h3>
+		<button class="btn btn-outline-primary" @click="profileUpdate">유저 정보 수정</button>
 		<p>자기소개</p>
 		<hr>
 		<p>{{ store.personBio }}</p>
@@ -24,8 +26,15 @@ onMounted(() => {
 	store.getPersonProfile()
 })
 
+function profileUpdate() {
+	router.push({ name: 'editprofile' })
+}
+
 </script>
 
 <style scoped>
-
+h3 {
+	display:inline;
+	margin-right:50px
+}
 </style>

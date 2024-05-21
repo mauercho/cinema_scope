@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="container">
-			<h1>회원정보</h1>
+			<h1>회원정보 페이지</h1>
 			<div class="container" v-if="!store.isProfile">
 				<p>유저 정보가 없습니다. ㅠㅠ 만들어주세요</p>
 				<button class="btn btn-outline-secondary" @click="editUser">유저 정보 입력</button>

@@ -54,7 +54,7 @@ export const useMovieStore = defineStore('counter', () => {
     .then((response) => {
       personBio.value = response.data.bio
       personImage.value = response.data.profile_pic
-      console.log(personImage.value)
+      // console.log(personImage.value)
     })
     .catch((error) => {
       console.log(error)
@@ -70,8 +70,11 @@ export const useMovieStore = defineStore('counter', () => {
     .then((response) => {
       if (response.data.bio !== null) { // 프로필이 있을 떄
         isProfile.value = true
+        console.log('프로필이 있슴.')
       }
       else {
+        console.log(userId.value)
+        console.log('없슴.')
         isProfile.value = false
         personBio.value = null
         personImage.value = null
