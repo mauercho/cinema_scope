@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 import { useMovieStore } from '@/stores/counter'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
@@ -59,7 +59,16 @@ const editProfile = function () {
     .catch((error) => {
         console.log(error)
     })
+}
 
+function previewImage(event) {
+    const file = event.target.files[0]
+		const reader = new FileReader()
+		reader.onload = (e) => {
+			imagePreview2.value = e.target.result
+		}
+		reader.readAsDataURL(file)
+    imagePreview.value = file
 }
 
 const createProfile = function () {
@@ -82,15 +91,7 @@ const createProfile = function () {
     })
 }
 
-function previewImage(event) {
-    const file = event.target.files[0]
-		const reader = new FileReader()
-		reader.onload = (e) => {
-			imagePreview2.value = e.target.result
-		}
-		reader.readAsDataURL(file)
-    imagePreview.value = file
-}
+
 
 // function previewImage(event) {
 //     const file = event.target.files[0]

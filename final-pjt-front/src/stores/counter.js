@@ -7,6 +7,7 @@ const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY
 const KR_API_KEY = import.meta.env.VITE_KR_MOVIE_API_KEY
 
 export const useMovieStore = defineStore('counter', () => {
+  const movieId = ref(null)
   const movies = ref([])
   const API_URL = 'http://127.0.0.1:8000'
   const token = ref(null)
@@ -14,8 +15,12 @@ export const useMovieStore = defineStore('counter', () => {
   const router = useRouter()
   const isProfile = ref(false)
   const personBio = ref(null)
+  const likedMovies = ref([])
+  const reviewsMovies = ref([])
   const personImage = ref(null)
   const imageUrl = ref(null)
+  const favoriteMovies = ref([])
+
   const isLogin = computed(() => {
     if (token.value === null) {
       return false
@@ -24,29 +29,6 @@ export const useMovieStore = defineStore('counter', () => {
     }
   })
   const getPersonProfile = function (){
-    // axios({
-    //   method: 'get',
-    //   url: `${API_URL}/accounts/profile/${userId.value}/`,
-    // })
-    // .then((response) => {
-    //   personBio.value = response.data.bio
-    //   axios({
-    //     method: 'get',
-    //     url: response.data.profile_pic,
-    //     responseType: 'blob'
-    //   })
-    //   .then((imageResponse) => {
-    //     imageUrl = URL.createObjectURL(imageResponse.data)
-    //     personImage.value = imageUrl
-    //     console.log(personImage.value)
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //   })
-    // })
-    // .catch((error) => {
-    //   console.log(error)
-    // })
     axios({
       method: 'get',
       url: `${API_URL}/accounts/profile/${userId.value}/`,
@@ -88,6 +70,22 @@ export const useMovieStore = defineStore('counter', () => {
     })
   }
 
+  const getAllInfoMovies = function() {
+    axios({
+      method: 'get',
+      url: `${API_URL}/accounts/profile/${userId.value}/`,
+    })
+    .then((response) => {
+      favoriteMovies.value = response.data.user.favorites
+      likedMovies.value = response.data.user.like_movies
+      reviewsMovies.value = response.data.user.review_set
+      console.log(favoriteMovies)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+
+  }
   const getMovies = function() {
     axios({
       method: 'get',
@@ -186,6 +184,6 @@ export const useMovieStore = defineStore('counter', () => {
       // })
   }
 
-  return { movies, getMovies, signUp, logIn, token, isLogin, API_URL, userId, getPerson, logOut, isProfile, personBio, personImage, getPersonProfile, imageUrl}
+  return { movies, movieId, getMovies, signUp, logIn, token, isLogin, API_URL, userId, getPerson, logOut, isProfile, personBio, personImage, getPersonProfile, imageUrl, getAllInfoMovies, likedMovies, reviewsMovies, favoriteMovies}
 }, {persist: true})
 

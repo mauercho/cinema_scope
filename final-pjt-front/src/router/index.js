@@ -67,6 +67,11 @@ const router = createRouter({
       path: '/accounts/editprofile/',
       name: 'editprofile',
       component: UserUpdateView,
+    },
+    {
+      path: '/accounts/:UserId',
+      name: 'userdetail',
+      component: UserInfoView,
     }
   ]
 })

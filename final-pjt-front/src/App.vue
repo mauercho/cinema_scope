@@ -2,19 +2,20 @@
 <template>
   <header>
     <div class ="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand navbar-light bg-light">
         <Router-link class="navbar-brand" :to="{ name: 'home' }"><img src="@/assets/logo.png" alt="Logo" id="logo"></Router-link>
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <Router-link class="nav-link" :to="{ name: 'home' }">현재상영중인 영화</Router-link>
+              <Router-link class="nav-link" :to="{ name: 'now-filming-movie' }">현재상영중인 영화</Router-link>
             </li>
             <li class="nav-item">
               <Router-link class="nav-link" :to="{ name: 'recommended' }">영화 추천받기</Router-link>
             </li>
-            <!-- <li class="nav-item">
-              <Router-link class="nav-link" :to="{ name: 'myinfo', params: {userid: store.userId}}">내 프로필</Router-link>
-            </li> -->
+            <li class="nav-item">
+              <!-- <Router-link class="nav-link" :to="{ name: 'myinfo', params: {userid: store.userId}}">내 프로필</Router-link> -->
+              <Router-link class="nav-link" :to="{ name: 'myinfo'}">내 프로필</Router-link>
+            </li>
           </ul>
           <div v-if="store.token === null">
             <Router-link class="btn btn-outline-primary mr-5" :to="{ name: 'signup' }">회원가입</Router-link>
@@ -39,7 +40,7 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { useMovieStore } from '@/stores/counter'
 import { useRouter } from 'vue-router'
-
+import { onMounted } from 'vue'
 
 const store = useMovieStore()
 const router = useRouter()
@@ -47,13 +48,11 @@ const handleLogout = () => {
   store.logOut()
   router.push({ name: 'home' })
 }
-
-
 </script>
 
 <style scoped>
 #logo {
-  width: 3rem; /* 원하는 너비로 설정 */
+  width: 50px; /* 원하는 너비로 설정 */
   height: auto; /* 높이는 자동으로 설정하여 비율을 유지 */
 }
 /* header {
