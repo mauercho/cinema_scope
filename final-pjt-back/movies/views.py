@@ -82,13 +82,13 @@ def reviews(request, movie_pk):
         reviews = movie.review_set.all()
         serializer = ReviewSerializer(reviews, many=True)
         return JsonResponse(serializer.data, safe=False)
-    
+
     elif request.method == 'POST':
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(movie=movie, user=request.user)
             return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
-        
+
 
 # 특정 리뷰 수정 / 삭제
 @api_view(['DELETE', 'PUT'])
@@ -100,13 +100,13 @@ def review_detail(request, movie_pk, review_pk):
         print(review)
         review.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
+
     elif request.method == 'PUT':
         serializer = ReviewSerializer(review, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return JsonResponse(serializer.data)
-        
+
 # 리뷰 좋아요
 @api_view(['POST'])
 # @parser_classes([IsAuthenticated])
@@ -144,7 +144,7 @@ def recommend(request, user_pk):
 
     liked_movie_titles = [movie.original_title for movie in liked_movies]
     prompt = generate_prompt(liked_movie_titles)
-    
+
     # client = openai.OpenAI(api_key = "sk-proj-Vg67oj0tLNOVqO4HeyoJT3BlbkFJHOSZXr9VRLoPofam5kd9")
     response = openai.ChatCompletion.create(
         model="gpt-4o",
