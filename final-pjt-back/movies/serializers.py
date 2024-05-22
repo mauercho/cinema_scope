@@ -28,11 +28,11 @@ class GenreSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(serializers.ModelSerializer):
     
-    class ReviewUserSerializer(serializers.ModelSerializer):
+    class UserNameSerializer(serializers.ModelSerializer):
         class Meta:
             model = User
             fields = ('username',)
-    username = ReviewUserSerializer(read_only=True)
+    user = UserNameSerializer(read_only=True)
 
     class Meta:
         model = Review
