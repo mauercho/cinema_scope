@@ -6,9 +6,11 @@ from .serializers import MovieSerializer, ReviewSerializer
 from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
 import os
-from openai import OpenAI
-
+import openai
+import requests
+import re
 
 
 
@@ -119,15 +121,102 @@ def review_likes(request, movie_pk, review_pk):
 
 
 
-
+openai.api_key = "sk-proj-Vg67oj0tLNOVqO4HeyoJT3BlbkFJHOSZXr9VRLoPofam5kd9"
 ###### 영화 추천 받기 ######
-@api_view(['GET'])
-def recommend(request):
-    client = OpenAI(api_key = "sk-proj-Vg67oj0tLNOVqO4HeyoJT3BlbkFJHOSZXr9VRLoPofam5kd9")
-    completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+@csrf_exempt
+def recommend(request, user_pk):
+    try:
+        user = get_user_model().objects.get(pk=user_pk)
+    except get_user_model().DoesNotExist:
+        return JsonResponse({'error': 'User not found.'}, status=404)
+
+    liked_movies = user.like_movies.all()
+    print(liked_movies)
+    if not liked_movies.exists():
+        return JsonResponse({'error': 'No liked movies found for the user.'}, status=400)
+
+    liked_movie_titles = [movie.original_title for movie in liked_movies]
+    prompt = generate_prompt(liked_movie_titles)
+    
+    # client = openai.OpenAI(api_key = "sk-proj-Vg67oj0tLNOVqO4HeyoJT3BlbkFJHOSZXr9VRLoPofam5kd9")
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
         messages=[
-            {"role": "user", "content": "내가 좋아하는 영화 추천 해줘"}
-        ]
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt},
+        ],
+        max_tokens=150,
+        n=1,
+        stop=None,
+        temperature=0.7,
     )
-    return JsonResponse(completion.choices[0].message.content, safe=False)
+
+    recommendations_text = response.choices[0].message.content.strip()
+    recommendations = recommendations_text.split('\n')
+    recommendations = [rec.strip() for rec in recommendations if rec.strip()]
+    print('recommendations', recommendations)
+    print()
+    print('이제진짜 제목', recommendations[3])
+
+
+
+
+    # movie_titles = extract_movie_titles(recommendations)
+    # print(movie_titles)
+
+
+
+    tmdb_recommendations = []
+    for movie_title in recommendations:
+        print('title', movie_title)
+        tmdb_data = get_tmdb_data(movie_title)
+        if tmdb_data:
+            tmdb_recommendations.append(tmdb_data)
+
+    return JsonResponse({'recommendations': tmdb_recommendations})
+
+
+
+
+
+def generate_prompt(liked_movies):
+    liked_movies_str = ", ".join(liked_movies)
+    prompt = (
+        f"I have enjoyed the following movies: {liked_movies_str}. " +
+        "Can you recommend me at least 5 similar movies that I might like? " +
+        "Please provide the recommendations only 'title'."
+    )
+    print('prompt', prompt)
+    return prompt
+
+
+
+
+def get_tmdb_data(movie_title):
+    url = f"https://api.themoviedb.org/3/search/movie"
+    params = {
+        'api_key': "047195d71080c8a4198669abf6149129",
+        'query': movie_title,
+    }
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        print(response.json())
+        # results = response.json().get['results']
+        # print("get_tmdb_data의", results)
+        # if results:
+        #     return results[0]  # return the first matching movie
+    return None
+
+
+
+# def extract_movie_titles(text):
+#     # Define the regular expression pattern
+#     pattern = r'"\s*(.*?)\s*"'  # matches anything within double quotes
+    
+#     # Find all matches
+#     matches = re.findall(pattern, text)
+    
+#     # Remove leading and trailing whitespace from each match
+#     movie_titles = [match.strip() for match in matches]
+    
+#     return movie_titles
