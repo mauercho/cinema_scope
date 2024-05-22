@@ -33,7 +33,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     class UserNameSerializer(serializers.ModelSerializer):
         class Meta:
             model = get_user_model()
-            fields = ('username',)
+            fields = ('id', 'username',)
     user = UserNameSerializer(read_only=True)
 
     class Meta:
