@@ -9,6 +9,7 @@ import UserInfoView from '@/views/accounts/UserInfoView.vue'//
 import UserUpdateView from '@/views/accounts/UserUpdateView.vue'
 import MyInfoView from '@/views/accounts/MyInfoView.vue'
 import logoutView from '@/views/accounts/LogoutView.vue'
+import OtherUserInfoView from '@/views/accounts/UserInfoView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,11 +45,6 @@ const router = createRouter({
       component: SignUpView
     },
     {
-      path: '/accounts/userinfo',
-      name: 'userinfo',
-      component: UserInfoView
-    },
-    {
       path: '/accounts/userupdate',
       name: 'userupdate',
       component: UserUpdateView
@@ -69,9 +65,9 @@ const router = createRouter({
       component: UserUpdateView,
     },
     {
-      path: '/accounts/:UserId',
+      path: '/accounts/:userId',
       name: 'userdetail',
-      component: UserInfoView,
+      component: OtherUserInfoView,
     }
   ]
 })

@@ -43,7 +43,6 @@
 	<div v-else>
 		<p>리뷰가 없습니다.</p>
 	</div>
-	{{ store.reviewsMovies }}
 		<div v-for="review in store.reviewsMovies" :key="review.id">
 			<MovieReview
 				:review="review" class="mb-3 mt-3"
@@ -60,6 +59,7 @@ import MovieCard from '@/components/MovieCardComponent.vue'
 import MovieReview from '@/components/MovieReviewComponent.vue'
 const router = useRouter()
 const store = useMovieStore()
+
 
 onMounted(() => {
 	store.getPersonProfile()

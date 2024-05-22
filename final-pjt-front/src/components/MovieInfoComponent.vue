@@ -17,11 +17,7 @@
     </form>
 
     <h3>리뷰 모음</h3>
-    <div v-for="review in reverseReview" :key="review.id">
-			<UserReview
-				:review="review" class="mb-3 mt-3"
-			/>
-		</div>
+    <UserReview />
     <!-- <button
       type="button"
       class="btn"
@@ -38,7 +34,7 @@
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 import { useMovieStore } from '@/stores/counter'
-import UserReview from '@/components/UserReviewComponent.vue'
+import UserReview from '@/views/UserReviewView.vue'
 
 const review = ref(null)
 const reverseReview = ref(null)
@@ -70,23 +66,7 @@ const reviewCreate = function () {
     console.log(error)
   })
 }
-onMounted(() => {
-  getReview()
-})
 
-const getReview = function () {
-  axios({
-    method: 'get',
-    url: `${store.API_URL}/movies/${store.movieId}/reviews/`,
-  })
-  .then((response) => {
-    allReview.value = response.data
-    reverseReview.value = [...allReview.value].reverse()
-  })
-  .catch((error) => {
-    console.log(error)
-  })
-}
 
 </script>
 

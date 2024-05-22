@@ -2,7 +2,7 @@
 	<div>
 		<div class="card">
 			<div class="card-header">
-				{{review.movie.title}}
+				{{ review.user.username }}
 			</div>
 			<div class="card-body">
 				<blockquote class="blockquote mt-3">
@@ -22,5 +22,8 @@ defineProps({
 </script>
 
 <style scoped>
-
+.card {
+	width: 500px;
+	height: auto;
+}
 </style>

@@ -21,6 +21,7 @@ export const useMovieStore = defineStore('counter', () => {
   const imageUrl = ref(null)
   const favoriteMovies = ref([])
 
+
   const isLogin = computed(() => {
     if (token.value === null) {
       return false
@@ -168,22 +169,7 @@ export const useMovieStore = defineStore('counter', () => {
     .catch((error) => {
       console.log(error)
     })
-      // .then((response) => {
-      //   // console.log('로그인 성공!')
-      //   // console.log(response)
-      //   // console.log(response.data.key)
-      //   // 3. 로그인 성공 후 응답 받은 토큰을 저장
-      //   console.log('로그인 성공!')
-      //   console.log(response)
-      //   token.value = response.data.key
-      //   router.push({ name : 'home' })
-      // })
-      // .catch((error) => {
-      //   console.log('실패')
-      //   console.log(error)
-      // })
   }
-
   return { movies, movieId, getMovies, signUp, logIn, token, isLogin, API_URL, userId, getPerson, logOut, isProfile, personBio, personImage, getPersonProfile, imageUrl, getAllInfoMovies, likedMovies, reviewsMovies, favoriteMovies}
 }, {persist: true})
 
