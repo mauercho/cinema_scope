@@ -208,3 +208,25 @@ def get_tmdb_data(movie_title):
             return remake_data  # return the first matching movie
     return None
 
+
+
+
+def recommend_following(request, user_pk):
+    try:
+        user = get_user_model().objects.get(pk=user_pk)
+    except get_user_model().DoesNotExist:
+        return JsonResponse({'error': 'User not found.'}, status=404)
+    
+    following_users = user.followings.all()
+    if not following_users.exists():
+        return JsonResponse({'error': 'No liked movies found for the user.'}, status=400)
+
+    print("팔로우하는 유저", following_users)
+    
+    followings_recommendations = []
+    for following_user in following_users:
+        for movie in following_user.like_movies.all():
+            followings_recommendations.append(movie)
+    print("팔로잉들이 좋아하는 영화", followings_recommendations)
+
+    return JsonResponse(followings_recommendations, safe=False)
