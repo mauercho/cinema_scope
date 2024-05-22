@@ -25,7 +25,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = User
-            fields = ('username', 'favorites', 'like_movies', 'review_set')
+            fields = ('username', 'favorites', 'like_movies', 'review_set', 'followers')
     user = UserSerializer(read_only=True)
 
 
