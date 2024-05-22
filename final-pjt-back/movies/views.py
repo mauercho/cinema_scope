@@ -38,7 +38,7 @@ def detail(request, movie_pk):
 
 # 영화에 대해 좋아요 누르기
 @api_view(['POST'])
-@parser_classes([IsAuthenticated])
+# @parser_classes([IsAuthenticated])
 def movie_likes(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
     if request.user in movie.like_users.all():
@@ -54,7 +54,7 @@ def movie_likes(request, movie_pk):
 
 # fav 선택
 @api_view(['POST'])
-@parser_classes([IsAuthenticated])
+# @parser_classes([IsAuthenticated])
 def favorites(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
     if request.user in movie.favorite_users.all():
@@ -75,7 +75,7 @@ def favorites(request, movie_pk):
 
 # 특정 영화에 대한 리뷰 조회 / 생성
 @api_view(['GET', 'POST'])
-@parser_classes([IsAuthenticated])
+# @parser_classes([IsAuthenticated])
 def reviews(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
     if request.method == 'GET':
@@ -92,7 +92,7 @@ def reviews(request, movie_pk):
 
 # 특정 리뷰 수정 / 삭제
 @api_view(['DELETE', 'PUT'])
-@parser_classes([IsAuthenticated])
+# @parser_classes([IsAuthenticated])
 def review_detail(request, movie_pk, review_pk):
     review = Review.objects.get(pk=review_pk)
 
@@ -109,7 +109,7 @@ def review_detail(request, movie_pk, review_pk):
         
 # 리뷰 좋아요
 @api_view(['POST'])
-@parser_classes([IsAuthenticated])
+# @parser_classes([IsAuthenticated])
 def review_likes(request, movie_pk, review_pk):
     movie = Movie.objects.get(pk=movie_pk)
     review = Review.objects.get(pk=review_pk)
@@ -130,7 +130,7 @@ def review_likes(request, movie_pk, review_pk):
 openai.api_key = "sk-proj-Vg67oj0tLNOVqO4HeyoJT3BlbkFJHOSZXr9VRLoPofam5kd9"
 ###### 영화 추천 받기 ######
 @csrf_exempt
-@parser_classes([IsAuthenticated])
+# @parser_classes([IsAuthenticated])
 def recommend(request, user_pk):
     try:
         user = get_user_model().objects.get(pk=user_pk)
