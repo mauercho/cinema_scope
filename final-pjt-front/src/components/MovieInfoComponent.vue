@@ -35,7 +35,9 @@ import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 import { useMovieStore } from '@/stores/counter'
 import UserReview from '@/views/UserReviewView.vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const review = ref(null)
 const reverseReview = ref(null)
 const allReview = ref(null)
@@ -60,6 +62,10 @@ const reviewCreate = function () {
   })
   .then((response) => {
     console.log("성공했습니다.")
+    const currentRoute = router.currentRoute.value.fullPath
+    router.replace('/').then(() => {
+      router.replace(currentRoute)
+    })
   })
   .catch((error) => {
     console.log(store.token.value)

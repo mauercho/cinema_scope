@@ -3,9 +3,10 @@
 		<div v-if="reverseReview">
 			<div v-for="review in reverseReview" :key="review.id">
 				{{ review }}
+				<hr>
 				<UserReview
 					:review="review" class="mb-3 mt-3"
-					@click="goOtherUserPage(review.user.id)"
+					@click="changePage(review.user.id)"
 				/>
 			</div>
 		</div>
@@ -31,9 +32,15 @@ onMounted(() => {
 const reverseReview = ref(null)
 const allReview = ref(null)
 
-const goOtherUserPage = function(userId) {
-	router.push({ name: 'userdetail', params: { userId: userId } })
+const changePage = function(otherUserId) {
+	if (store.userId === otherUserId) {
+		router.push({ name: 'myinfo' })
+	} else {
+		router.push({ name: 'userdetail', params: { userId: otherUserId } })
+	}
 }
+
+
 const getReview = function () {
   axios({
     method: 'get',

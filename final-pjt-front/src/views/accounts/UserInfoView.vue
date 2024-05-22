@@ -1,9 +1,16 @@
 <template>
 	<div>
 		<div class="container">
+			{{ info }}
 			<h3>{{ username }}</h3>
 			<button class="btn btn-outline-primary" @click="followUser">팔로우 버튼</button>
-			<p>자기소개</p>
+			<!-- <div v-if="is_followed === false">
+				<button class="btn btn-outline-primary" @click="followUser">팔로우 버튼</button>
+			</div>
+			<div v-else>
+				<button class="btn btn-outline-primary" @click="followUser">언팔로우 버튼</button>
+			</div> -->
+			<h3>자기소개</h3>
 			<p>{{ info.bio }}</p>
 			<h3>favoirte movies</h3>
 			<div class="row">
@@ -57,6 +64,7 @@ const favorite_movies = ref([])
 const liked_movies = ref([])
 const reviews = ref([])
 const router = useRouter()
+const is_followed = ref(false)
 
 onMounted(() => {
 	getOtherUser()
@@ -80,6 +88,37 @@ const getOtherUser = function () {
 		reviews.value = response.data.user.review_set
 		username.value = response.data.user.username
 	})
+	// .then(() => {
+	// 	axios({
+	// 		method: 'post',
+	// 		url: `${store.API_URL}/accounts/profile/${info.value.id}/follow/`,
+	// 		headers: {
+	// 			'Authorization': `Token ${store.token}`
+	// 		}
+	// 	})
+	// 	.then((response) => {
+	// 		// console.log('팔로우 1성공')
+	// 		// console.log(response)
+	// 		is_followed.value = !response.data.is_followed
+	// 		console.log(is_followed.value)
+	// 	})
+	// 	.catch((error) => {
+	// 		console.log(error)
+	// 	})
+	// })
+	// .then(() => {
+	// 	axios({
+	// 		method: 'post',
+	// 		url: `${store.API_URL}/accounts/profile/${info.value.id}/follow/`,
+	// 		headers: {
+	// 			'Authorization': `Token ${store.token}`
+	// 		}
+	// 	})
+	// 	.then((response) => {
+	// 		console.log('팔로우 2성공')
+	// 		console.log(response)
+	// 	})
+	// })
 	.catch((error) => {
 		console.log(error)
 	})
@@ -100,6 +139,22 @@ function getRandomMovies(movies, count) {
     // Return the first `count` elements
     return copiedMovies.slice(0, count)
   }
+const followUser = function() {
+	axios({
+		method: 'post',
+		url: `${store.API_URL}/accounts/profile/${info.value.id}/follow/`,
+		headers: {
+      'Authorization': `Token ${store.token}`
+    }
+	})
+	.then((response) => {
+		console.log(response)
+	})
+	.catch((error) => {
+		console.log(error)
+	})
+}
+
 
 </script>
 
