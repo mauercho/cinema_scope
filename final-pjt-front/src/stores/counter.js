@@ -62,10 +62,12 @@ export const useMovieStore = defineStore('counter', () => {
         loginUserFollowings.value = response.data.user.followings
       }
       else {
-        loginUserName.value = response.data.user.username
+        loginUserName.value = ref(null)
         isProfile.value = false
         personBio.value = null
         personImage.value = null
+        loginUserFollowers.value = ref([])
+        loginUserFollowings.value = ref([])
       }
       // 프로필에 없을때는 false고 프로필을 만들어야함.
       // console.log(response.data)
