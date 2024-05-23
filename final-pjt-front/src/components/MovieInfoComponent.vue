@@ -1,68 +1,85 @@
 <template>
-  <div class="container d-flex flex-column align-items-center">
-    <img :src="getImgPath(movie.poster_path)" alt="" style="width: 20%">
-    <h3>{{ movie.title }}</h3>
-    <form @submit.prevent="doLike">
-      <div v-if="isLike===null">
-        <div v-if="!isLiked">
-         <button type="submit" class="btn btn-primary">좋아요</button>
+  <div class="container-fluid main-content">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="position-relative">
+          <img height="600" width="500" :src="getImgPath(movie.poster_path)" alt="">
+    <!-- <h3>{{ movie.title }}</h3> -->
+          <div class="position-absolute bottom-0 start-0 p-3">
+            <h1 class="movie-title">{{ movie.title }}</h1>
+          </div>
         </div>
-        <div v-else>
-          <button type="submit" class="btn btn-primary">좋아요 취소</button>
+        <div class="reviews">
+          <h4>Reviews</h4>
         </div>
+        <UserReview />
+      <form @submit.prevent="reviewCreate" class="post-review">
+        <input placeholder="리뷰 작성해주세요." type="text" v-model="review">
+        <!-- <textarea name="review" id="review" v-model="review"></textarea> -->
+        <button>POST Review</button>
+      </form>
       </div>
-      <div v-else>
-        <div v-if="!isLike">
-          <button type="submit" class="btn btn-primary">좋아요</button>
-        </div>
-        <div v-else>
-          <button type="submit" class="btn btn-primary">좋아요 취소</button>
-        </div>
+      <div class="col-lg-4">
+        <div class="actions">
+        <form @submit.prevent="doLike">
+          <div v-if="isLike===null">
+            <div v-if="!isLiked">
+            <button type="submit" class="btn btn-primary">좋아요</button>
+            </div>
+            <div v-else>
+              <button type="submit" class="btn btn-primary">좋아요 취소</button>
+            </div>
+          </div>
+          <div v-else>
+            <div v-if="!isLike">
+              <button type="submit" class="btn btn-primary">좋아요</button>
+            </div>
+            <div v-else>
+              <button type="submit" class="btn btn-primary">좋아요 취소</button>
+            </div>
 
+          </div>
+        </form>
+        <form @submit.prevent="doFavorite">
+          <div v-if="isFavor == null">
+            <div v-if="!isFavorite">
+              <button type="submit" class="do_button">Favorite</button>
+            </div>
+            <div v-else>
+              <button type="submit" class="do_button">Favorite 취소</button>
+            </div>
+          </div>
+          <div v-else>
+            <div v-if="!isFavor">
+              <button type="submit" class="do_button">Favorite</button>
+            </div>
+            <div v-else>
+              <button type="submit" class="do_button">Favorite 취소</button>
+            </div>
+          </div>
+        </form>
+        </div>
+        <div class="movie-details mt-3">
+          <h5>Release Date</h5>
+          <p>{{ movie.release_date }}</p>
+          <h5>Runtime</h5>
+          <p>{{ movie.runtime }}분</p>
+          <h5>TMDB Rating</h5>
+          <p>{{ movie.vote_average }}</p>
+          <h5>Genre</h5>
+          <span class="margin-bot" v-for="genre in movie.genres"> {{ genre.name }} </span>
+          <h5>Synopsis</h5>
+          <p>{{ movie.overview }}</p>
+        </div>
       </div>
-    </form>
-    <form @submit.prevent="doFavorite">
-      <div v-if="isFavor == null">
-        <div v-if="!isFavorite">
-          <button type="submit" class="btn btn-primary">Favorite</button>
-        </div>
-        <div v-else>
-          <button type="submit" class="btn btn-primary">Favorite 취소</button>
-        </div>
-      </div>
-      <div v-else>
-        <div v-if="!isFavor">
-          <button type="submit" class="btn btn-primary">Favorite</button>
-        </div>
-        <div v-else>
-          <button type="submit" class="btn btn-primary">Favorite 취소</button>
-        </div>
-      </div>
-    </form>
-    <p><span class="fw-bold">개봉일: </span>: {{ movie.release_date }}</p>
+    <!-- <p><span class="fw-bold">개봉일: </span>: {{ movie.release_date }}</p>
     <p><span class="fw-bold">러닝타임: </span> {{ movie.runtime }}분</p>
     <p><span class="fw-bold">TMDB 평점: </span> {{ movie.vote_average }}</p>
     <h3>장르</h3>
     <span v-for="genre in movie.genres">{{ genre.name }}</span>
     <h3>줄거리</h3>
-    <p>{{ movie.overview }}</p>
-    <form @submit.prevent="reviewCreate" class="card align-center row" :style="{width:'70%', marginBottom: '2rem'}">
-      <label for="review">리뷰 작성하세용.</label>
-      <textarea name="review" id="review" v-model="review"></textarea>
-      <button>리뷰 작성</button>
-    </form>
-
-    <h3>리뷰 모음</h3>
-    <UserReview />
-    <!-- <button
-      type="button"
-      class="btn"
-      @click="openModal"
-      data-bs-toggle="modal"
-      data-bs-target="#youtubeTrailerModal"
-    >C% 유튜브 띄우기.
-      <img src="http://wiki.hash.kr/images/9/97/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EB%A1%9EA%B3%A0.png" alt="Youtube" style="width: 36px">
-    </button> -->
+    <p>{{ movie.overview }}</p> -->
+    </div>
   </div>
 </template>
 
@@ -164,5 +181,106 @@ const reviewCreate = function () {
 </script>
 
 <style scoped>
-
+.main-content {
+    padding: 20px;
+}
+.movie-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+}
+.movie-details {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.movie-details h4 {
+    font-weight: bold;
+}
+.movie-details h5 {
+    font-weight: bold;
+}
+.margin-bot {
+  margin-bottom: 0.5rem;
+}
+.movie-details p {
+    margin-bottom: 0.5rem;
+}
+.reviews {
+    margin-top: 20px;
+}
+.review {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.review-content {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+}
+.review-content h6 {
+    margin: 0;
+    font-weight: bold;
+}
+.review-content p {
+    margin: 0;
+}
+.post-review {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+.post-review input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+.post-review button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+.sidebar {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.sidebar h5 {
+    font-weight: bold;
+}
+.sidebar .movie-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.sidebar .movie-item img {
+    border-radius: 8px;
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+.sidebar .movie-item p {
+    margin: 0;
+}
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+.do_button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin-left: 10px;
+}
 </style>

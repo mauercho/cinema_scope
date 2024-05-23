@@ -1,5 +1,5 @@
 <template>
-	<div class="container text-align-center">
+	<!-- <div class="container text-align-center">
 		<h1>GPT 기반 추천</h1>
 		<hr>
 		<div class="row">
@@ -7,6 +7,23 @@
 				<MovieCard
 					:movie="movie"
 				/>
+			</div>
+		</div>
+	</div> -->
+	<div>
+		<div class="container">
+			<div class="movie-title">
+				Movies Recommended by GPT
+			</div>
+			<div class="movie-subtitle">
+				These are the movies recommended by GPT based on your preferences.
+			</div>
+				<div class="row">
+				<div class="movie-grid col-3" v-for="movie in movies" :key="movie.tmdb_id">
+				<MovieCard
+					:movie="movie"
+				/>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -42,4 +59,37 @@ const getGptMovies = function() {
 
 <style scoped>
 
+.movie-title {
+		font-size: 24px;
+		font-weight: bold;
+		margin-top: 20px;
+}
+.movie-subtitle {
+		font-size: 16px;
+		color: #666;
+		margin-bottom: 20px;
+}
+.movie-grid {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 20px;
+		justify-content: center;
+}
+.movie-item {
+		width: 200px;
+		border-radius: 10px;
+		overflow: hidden;
+		text-align: center;
+}
+.movie-item img {
+		width: 100%;
+		height: 300px;
+		object-fit: cover;
+		border-bottom: 1px solid #ddd;
+}
+.movie-item-title {
+		padding: 10px;
+		font-size: 16px;
+		font-weight: bold;
+}
 </style>

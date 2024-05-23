@@ -1,15 +1,7 @@
 <template>
 	<div>
-		<div class="card">
-			<div class="card-header">
-				{{review.movie.title}}
-			</div>
-			<div class="card-body">
-				<blockquote class="blockquote mt-3">
-					<p>{{ review.content }}</p>
-				</blockquote>
-			</div>
-		</div>
+		<h4 class="margin-bot">{{review.movie.title}}</h4>
+		<p>{{ review.content }}</p>
 	</div>
 </template>
 
@@ -20,5 +12,12 @@ defineProps({
 </script>
 
 <style scoped>
-
+.margin-bot {
+	font-size:20px;
+	margin-bottom: 10px;
+}
+p{
+	font-size: 14px;
+		color: #333;
+}
 </style>

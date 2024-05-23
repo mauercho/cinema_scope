@@ -1,18 +1,22 @@
 <template>
 	<div>
-    <div class="container">
-      <h1>로그인 페이지</h1>
+    <div class="form-container">
+      <h2 class="text-center">Login</h2>
       <form @submit.prevent="logIn">
-        <div>
-          <label for="username">username : </label>
-          <input type="text" v-model.trim="username" id="username">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" v-model.trim="username" id="username" placeholder="Enter your username">
         </div>
-        <div>
-          <label for="password">password : </label>
-          <input type="password" v-model.trim="password" id="password">
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" v-model.trim="password" id="password" placeholder="Enter your password">
         </div>
-        <input type="submit">
+        <button type="submit" class="btn btn-primary">Login</button>
       </form>
+      <div class="text-center mt-3">
+        <p>Don't have an account?</p>
+        <a href="#">Sign up</a>
+      </div>
     </div>
 	</div>
 </template>
@@ -36,5 +40,39 @@ const logIn = function () {
 </script>
 
 <style scoped>
-
+.like_body {
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+.form-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.form-control {
+    background-color: #f1f3f5;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+}
+.btn-primary {
+    background-color: #4a6cf7;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+}
+.btn-primary:hover {
+    background-color: #3b5bdb;
+}
+.text-center a {
+    color: #6c757d;
+    text-decoration: none;
+}
+.text-center a:hover {
+    text-decoration: underline;
+}
 </style>

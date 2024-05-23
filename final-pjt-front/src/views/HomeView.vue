@@ -1,19 +1,13 @@
 <template>
-	<div class="container">
-		<h2>오늘의 박스 오피스</h2>
-	</div>
-	<div class = 'container border'>
-
-		<div v-for="movie in dailymovies">
-			<DailyMovie :movie="movie" />
+	<div class="like_body">
+		<div class="content">
+			<div class="movie-rankings">
+				<h2>Today's Movie Rankings</h2>
+			</div>
+			<div v-for="movie in dailymovies">
+				<DailyMovie :movie="movie" />
+			</div>
 		</div>
-		<!-- <form @submit.prevent="doaction">
-			<button>userinfo 보자/</button>
-		</form> -->
-		<!-- <h1>홈</h1> -->
-		<!-- <div v-for="movie in store.movies" :key="movie.id">
-			<img :src="getImgPath(movie.poster_path)" alt="">
-		</div> -->
 	</div>
 </template>
 
@@ -63,5 +57,56 @@ const nowFilmingMovie = function () {
 </script>
 
 <style scoped>
+.like_body {
+	font-family: Arial, sans-serif;
+	text-align: center;
+	background-color: white;
+}
 
+.navbar-brand {
+		font-weight: bold;
+}
+.content {
+		margin: 20px;
+}
+.movie-rankings {
+		margin-top: 20px;
+}
+.movie-rankings h2 {
+		font-weight: bold;
+}
+.movie-rankings ul {
+		list-style: none;
+		padding: 0;
+		display: inline-block;
+		text-align: left;
+}
+.movie-rankings li {
+		display: flex;
+		align-items: center;
+		margin-bottom: 10px;
+}
+.movie-rankings li input {
+		margin-right: 10px;
+}
+.recommended-movies {
+		margin-top: 40px;
+}
+.recommended-movies h2 {
+		font-weight: bold;
+}
+.recommended-movies .movie-card {
+		display: inline-block;
+		margin: 10px;
+		text-align: center;
+		border: 1px solid #ddd;
+		border-radius: 10px;
+		padding: 10px;
+		/* background-color: #fff; */
+}
+.recommended-movies img {
+		width: 150px;
+		height: 200px;
+		border-radius: 10px;
+}
 </style>

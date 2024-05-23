@@ -1,64 +1,74 @@
 <template>
-	<div>
-		<div class="container">
-			<h3>{{ username }}</h3>
-			<div v-if="first === null">
-				<p>팔로워 수: {{ followers.length }} </p>
-			</div>
-			<div v-else>
-				<p>팔로워 수: {{ first.followers_count }}</p>
-			</div>
-			<p>팔로잉 수: {{ followings.length }}</p>
+	<div class="container">
+		<div class="profile-header">
+			<h2>{{ username }}</h2>
+		<p>@minwu_97</p>
+		</div>
+		<div class="profile-stats">
+				<div class="stat" v-if="first === null">
+				<h3>{{ followers.length }} </h3>
+				<p>Followers</p>
+				</div>
+				<div class="stat" v-else>
+				<h3>{{ first.followers_count }}</h3>
+				<p>Followers</p>
+				</div>
+				<div class="stat">
+				<h3>{{ followings.length }}</h3>
+				<p>Following</p>
+				</div>
+		</div>
 			<!-- <button class="btn btn-outline-primary" @click="followUser">팔로우 버튼</button> -->
 			<div v-if="first === null">
-				<div v-if="isFollowed">
-					<button class="btn btn-outline-primary" @click="followUser">언팔로우 버튼</button>
+				<div class="follow-btn" v-if="isFollowed">
+					<button @click="followUser">Unfollow</button>
 				</div>
-				<div v-else>
-					<button class="btn btn-outline-primary" @click="followUser">팔로우 버튼</button>
+				<div class="follow-btn" v-else>
+					<button @click="followUser">Follow</button>
 				</div>
 			</div>
 			<div v-else>
-				<div v-if="first.is_followed">
-					<button class="btn btn-outline-primary" @click="followUser">언팔로우 버튼</button>
+				<div class="follow-btn" v-if="first.is_followed">
+					<button @click="followUser">Unfollow</button>
 				</div>
-				<div v-else>
-					<button class="btn btn-outline-primary" @click="followUser">팔로우 버튼</button>
+				<div class="follow-btn" v-else>
+					<button @click="followUser">Follow</button>
 				</div>
 			</div>
-			<h3>자기소개</h3>
-			<p>{{ info.bio }}</p>
-			<h3>favoirte movies</h3>
+			<div class="bio">
+				<p>{{ info.bio }}</p>
+			</div>
+			<div class="section-title">
+				Favorite Movies
+			</div>
 			<div class="row">
-      <div v-for="movie in getRandomMovies(favorite_movies, 4)" :key="movie.id" class="col-3">
-        <MovieCard
-          :movie="movie"
-          @click="goDetailPage(movie.tmdb_id, movie.id, movie.like_users, movie.favorite_users)"
-        />
-      </div>
+				<div class="movies col-3" v-for="movie in favorite_movies.slice(0, 4)" :key="movie.id">
+					<MovieCard
+						class="movies"
+						:movie="movie"
+						@click="goDetailPage(movie.tmdb_id, movie.id, movie.like_users, movie.favorite_users)"
+					/>
+				</div>
 			</div>
 		<hr>
-		<h3>좋아요 누른 영화</h3>
+		<div class="section-title">
+			Liked Movies
+		</div>
 		<div class="row">
-			<div v-for="movie in getRandomMovies(liked_movies, 4)" :key="movie.id" class="col-3">
+			<div class="movies col-3" v-for="movie in getRandomMovies(liked_movies, 8)" :key="movie.id">
 				<MovieCard
+					class="movies"
 					:movie="movie"
 					@click="goDetailPage(movie.tmdb_id, movie.id, movie.like_users, movie.favorite_users)"
 				/>
 			</div>
 		</div>
-		<h3> {{ username }}님이 쓴 리뷰</h3>
-		<div v-if="reviews.length > 0">
-			<div v-for="review in reviews" :key="review.id">
+		<div class="section-title">{{ username }}'s Reviews</div>
+		<div class="user-reviews" v-for="review in reviews" :key="review.id">
 			<MovieReview
-				:review="review" class="mb-3 mt-3"
+				class="review"
+				:review="review"
 			/>
-			</div>
-		</div>
-		<div v-else>
-			<p>리뷰가 없습니다.</p>
-		</div>
-
 		</div>
 	</div>
 </template>
@@ -157,5 +167,116 @@ const followUser = function() {
 </script>
 
 <style scoped>
-
+.profile-header {
+		text-align: center;
+		margin-top: 20px;
+}
+.profile-header h2 {
+		margin-top: 10px;
+		font-size: 24px;
+}
+.profile-header p {
+		color: #6c757d;
+}
+.profile-stats {
+		display: flex;
+		justify-content: center;
+		margin-top: 20px;
+}
+.profile-stats .stat {
+		margin: 0 15px;
+		text-align: center;
+}
+.profile-stats .stat h3 {
+		font-size: 20px;
+		margin-bottom: 5px;
+}
+.profile-stats .stat p {
+		color: #6c757d;
+}
+.follow-btn {
+		margin-top: 20px;
+		text-align: center;
+}
+.follow-btn button {
+		background-color: #007bff;
+		color: white;
+		border: none;
+		padding: 10px 20px;
+		border-radius: 5px;
+}
+.section-title {
+		font-size: 25px;
+		margin-top: 30px;
+		margin-bottom: 10px;
+}
+.movies-section {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+}
+.movies-section .movie {
+		margin: 10px;
+		border-radius: 10px;
+		overflow: hidden;
+		text-align: center;
+}
+.movies-section .movie img {
+		width: 200px;
+		height: 300px;
+		object-fit: cover;
+}
+.movies-section .movie p {
+		margin-top: 10px;
+		font-size: 16px;
+		color: #333;
+}
+.user-reviews {
+		margin-top: 30px;
+}
+.user-reviews .review {
+		margin-bottom: 20px;
+		padding: 15px;
+		background-color: #fff;
+		border-radius: 10px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+.user-reviews .review h5 {
+		font-size: 16px;
+		margin-bottom: 5px;
+}
+.user-reviews .review p {
+		font-size: 14px;
+		color: #333;
+}
+.bio {
+		text-align: center;
+		margin-top: 20px;
+		font-size: 16px;
+		color: #333;
+}
+.movies {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+}
+.movies .movie {
+		width: 200px;
+		margin: 10px;
+		border-radius: 10px;
+		overflow: hidden;
+		background-color: #fff;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		text-align: center;
+}
+.movies .movie img {
+		width: 100%;
+		height: 300px;
+		object-fit: cover;
+}
+.movies .movie-title {
+		padding: 10px;
+		font-size: 16px;
+		color: #333;
+}
 </style>

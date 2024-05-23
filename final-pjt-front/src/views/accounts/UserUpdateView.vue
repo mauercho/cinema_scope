@@ -1,31 +1,27 @@
 <template>
 	<div class="container" v-if="store.personImage">
 		<!-- 이미지가 있고 수정만 하면 되는 거임. -->
-		<h1>유저 정보 수정 페이지입니다.</h1>
-		<form @submit.prevent="editProfile">
-			<label for="self-introduction">자기소개: </label>
-			<textarea name="self-introduction" id="self-introduction" v-model="selfIntroduction" required></textarea>
+		<h2 class="mb-4">Edit Profile</h2>
+		<form class="mb-3" @submit.prevent="editProfile">
+			<label class="form-label" for="self-introduction">Bio</label>
+			<textarea class="form-control" name="self-introduction" id="self-introduction" v-model="store.personBio" rows="3" required></textarea>
 			<br>
-			<label for="image-input">이미지 넣으세요.</label>
+			<input class="btn btn-attach me-2" label="image-input" type = "file" accept = "image/*" @change="previewImage">
+			<img class="image-preview" height="400" :src="imagePreview2" alt="Image preview" v-if="imagePreview2"/>
 			<br>
-			<input label="image-input" type = "file" accept = "image/*" @change="previewImage">
-			<img :src="imagePreview2" alt="Image preview" v-if="imagePreview2"/>
-			<br>
-			<button type="submit">수정하기</button>
+			<button type="submit" class="btn-save btn">Save</button>
 		</form>
 	</div>
 	<div class="container" v-else>
-		<h1>유저 정보 생성 페이지입니다.</h1>
+		<h2 class="mb-4">Create Profile</h2>
 		<form @submit.prevent="createProfile">
-			<label for="self-introduction">자기소개: </label>
-			<textarea name="self-introduction" id="self-introduction" v-model="selfIntroduction" required></textarea>
+			<label class="form-label" for="self-introduction">Bio</label>
+			<textarea class="form-control" name="self-introduction" id="self-introduction" v-model="selfIntroduction" required></textarea>
 			<br>
-			<label for="image-input">이미지 넣으세요.</label>
+			<input class="btn btn-attach me-2" label="image-input" type = "file" accept = "image/*" @change="previewImage">
+			<img class="image-preview" height="400" :src="imagePreview2" alt="Image preview" v-if="imagePreview2"/>
 			<br>
-			<input label="image-input" type = "file" accept = "image/*" @change="previewImage">
-			<img :src="imagePreview2" alt="Image preview" v-if="imagePreview2"/>
-			<br>
-			<button type="submit">수정하기</button>
+			<button type="submit" class="btn-save btn">Save</button>
 		</form>
 	</div>
 </template>
@@ -44,7 +40,7 @@ const imagePreview2 = ref(null)
 
 const editProfile = function () {
 		const formData = new FormData()
-    formData.append('bio', selfIntroduction.value)
+		formData.append('bio', store.personBio)
     formData.append('profile_pic', imagePreview.value)
     axios({
         method: 'put',
@@ -91,24 +87,37 @@ const createProfile = function () {
     })
 }
 
-
-
-// function previewImage(event) {
-//     const file = event.target.files[0]
-//     imagePreview.value = file
-// }
-
-// function previewImage(event) {
-//   const file = event.target.files[0]
-//   const reader = new FileReader()
-//   reader.onload = (e) => {
-//     imagePreview.value = e.target.result
-//   }
-//   reader.readAsDataURL(file)
-// }
-
 </script>
 
 <style scoped>
-
+.profile-pic {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+}
+.container {
+		max-width: 600px;
+		margin-top: 50px;
+}
+.form-label {
+		font-weight: bold;
+}
+.form-control {
+		background-color: #f1f3f5;
+		border: none;
+		border-radius: 10px;
+}
+.btn-attach {
+		background-color: #e0e0e0;
+		color: black;
+}
+.btn-save {
+		background-color: #4a90e2;
+		color: white;
+}
+.image-preview {
+		width: 100%;
+		border-radius: 10px;
+		margin-top: 20px;
+}
 </style>

@@ -1,7 +1,6 @@
 <template>
-	<div>
+	<div class="mt-2 mb-2">
 		{{ movie.rank }}위: {{ movie.movieNm }}
-		<hr>
 	</div>
 </template>
 
@@ -14,3 +13,4 @@ defineProps({
 <style scoped>
 
 </style>
+

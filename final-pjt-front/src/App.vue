@@ -1,6 +1,7 @@
 
 <template>
-  <header>
+  <div>
+  <header class="like_body">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <Router-link class="navbar-brand" :to="{ name: 'home' }"><img src="@/assets/logo.png" alt="Logo" id="logo">CINEMA SCOPE</Router-link>
@@ -16,7 +17,7 @@
                 <Router-link class="nav-link" :to="{ name: 'myinfo'}">My Profile</Router-link>
               </li>
               <li class="nav-item">
-                <Router-link class="nav-link" :to="{ name: 'signup' }">Sign-In</Router-link>
+                <Router-link class="nav-link" :to="{ name: 'signup' }">Sign-Up</Router-link>
               </li>
             </ul>
             <div v-if="store.token === null" class="d-flex">
@@ -29,6 +30,7 @@
       </div>
       </nav>
   </header>
+  </div>
   <Router-view />
 </template>
 
@@ -47,6 +49,12 @@ const handleLogout = () => {
 </script>
 
 <style scoped>
+
+.like_body {
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
 #logo {
   width: 50px; /* 원하는 너비로 설정 */
   height: auto; /* 높이는 자동으로 설정하여 비율을 유지 */

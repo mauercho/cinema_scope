@@ -1,16 +1,11 @@
 <template>
 	<div>
-		<div v-if="reverseReview">
-			<div v-for="review in reverseReview" :key="review.id">
-				<hr>
-				<UserReview
-					:review="review" class="mb-3 mt-3"
-					@click="changePage(review.user.id)"
-				/>
-			</div>
-		</div>
-		<div v-else>
-			<p>리뷰가 없습니다.</p>
+		<div v-for="review in reverseReview" :key="review.id">
+			<hr>
+			<UserReview class="reviews"
+				:review="review"
+				@click="changePage(review.user.id)"
+			/>
 		</div>
 	</div>
 </template>
@@ -56,5 +51,7 @@ const getReview = function () {
 </script>
 
 <style scoped>
-
+.reviews {
+    margin-top: 20px;
+}
 </style>

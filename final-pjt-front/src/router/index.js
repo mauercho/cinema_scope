@@ -5,10 +5,8 @@ import NowFilmingMovieView from '@/views/NowFilmingMovieView.vue'//
 import MovieDetailView from '@/views/MovieDetailView.vue'//
 import LoginView from '@/views/accounts/LoginView.vue'
 import SignUpView from '@/views/accounts/SignUpView.vue'
-import UserInfoView from '@/views/accounts/UserInfoView.vue'//
 import UserUpdateView from '@/views/accounts/UserUpdateView.vue'
 import MyInfoView from '@/views/accounts/MyInfoView.vue'
-import logoutView from '@/views/accounts/LogoutView.vue'
 import OtherUserInfoView from '@/views/accounts/UserInfoView.vue'
 
 const router = createRouter({
@@ -53,11 +51,6 @@ const router = createRouter({
       path: '/accounts/myinfo/',
       name: 'myinfo',
       component: MyInfoView
-    },
-    {
-      path: '/accounts/logout/',
-      name: 'logout',
-      component: logoutView,
     },
     {
       path: '/accounts/editprofile/',
