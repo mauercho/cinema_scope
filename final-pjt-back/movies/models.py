@@ -15,7 +15,7 @@ class Movie(models.Model):
     overview = models.TextField(blank=True)
     vote_average = models.FloatField()
     release_date = models.DateField()
-    poster_path = models.TextField()
+    poster_path = models.TextField(null=True)
     tmdb_id = models.IntegerField()
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='like_movies')
     favorite_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='favorites')
