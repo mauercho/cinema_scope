@@ -3,14 +3,29 @@
 		<div class="container">
 			<!-- {{ info }}  -->
 			<h3>{{ username }}</h3>
-			<p>팔로워 수: {{ followCount }} </p>
-			<p>팔로잉 수: {{ followings_count }}</p>
-			<!-- <button class="btn btn-outline-primary" @click="followUser">팔로우 버튼</button> -->
-			<div v-if="isFollowed">
-				<button class="btn btn-outline-primary" @click="followUser">언팔로우 버튼</button>
+			<div v-if="first === null">
+				<p>팔로워 수: {{ followers.length }} </p>
 			</div>
 			<div v-else>
-				<button class="btn btn-outline-primary" @click="followUser">팔로우 버튼</button>
+				<p>팔로워 수: {{ first.followers_count }}</p>
+			</div>
+			<p>팔로잉 수: {{ followings.length }}</p>
+			<!-- <button class="btn btn-outline-primary" @click="followUser">팔로우 버튼</button> -->
+			<div v-if="first === null">
+				<div v-if="isFollowed">
+					<button class="btn btn-outline-primary" @click="followUser">언팔로우 버튼</button>
+				</div>
+				<div v-else>
+					<button class="btn btn-outline-primary" @click="followUser">팔로우 버튼</button>
+				</div>
+			</div>
+			<div v-else>
+				<div v-if="first.is_followed">
+					<button class="btn btn-outline-primary" @click="followUser">언팔로우 버튼</button>
+				</div>
+				<div v-else>
+					<button class="btn btn-outline-primary" @click="followUser">팔로우 버튼</button>
+				</div>
 			</div>
 			<h3>자기소개</h3>
 			<p>{{ info.bio }}</p>
@@ -68,16 +83,12 @@ const reviews = ref([])
 const router = useRouter()
 const followers = ref([])
 const followings = ref([])
-const followers_count = ref(null)
-const followings_count = ref(null)
+const first = ref(null)
 
 const isFollowed = computed(() => {
 	return followers.value && followers.value.includes(store.userId)
 })
 
-const followCount = computed(() => {
-	return followers_count.value
-})
 
 onMounted(() => {
 	getOtherUser()
@@ -135,6 +146,7 @@ const followUser = function() {
     }
 	})
 	.then((response) => {
+		first.value = response.data
 		console.log(response)
 	})
 	.catch((error) => {
