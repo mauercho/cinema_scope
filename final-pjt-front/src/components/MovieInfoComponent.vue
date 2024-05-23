@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid main-content">
+  <div class="container main-content">
     <div class="row">
       <div class="col-lg-6">
         <div class="position-relative">

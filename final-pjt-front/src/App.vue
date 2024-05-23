@@ -4,7 +4,7 @@
   <header class="like_body">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <Router-link class="navbar-brand" :to="{ name: 'home' }"><img src="@/assets/logo.png" alt="Logo" id="logo">CINEMA SCOPE</Router-link>
+          <Router-link class="navbar-brand" :to="{ name: 'home' }"><img src="@/assets/logo.png" alt="Logo" id="logo">CINEMASCOPE</Router-link>
           <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-lg-0">
               <li class="nav-item">

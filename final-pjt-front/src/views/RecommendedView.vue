@@ -13,10 +13,11 @@
 	<div>
 		<div class="container">
 			<div class="movie-title">
-				Movies Recommended by GPT
+				추천 영화
 			</div>
 			<div class="movie-subtitle">
-				These are the movies recommended by GPT based on your preferences.
+				<!-- These are the movies recommended by GPT based on your preferences. -->
+				당신의 선호도를 기반으로 GPT에서 추천한 영화입니다.
 			</div>
 				<div class="row">
 				<div class="movie-grid col-3" v-for="movie in movies" :key="movie.tmdb_id">

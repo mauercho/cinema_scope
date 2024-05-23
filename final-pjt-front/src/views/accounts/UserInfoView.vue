@@ -39,7 +39,7 @@
 				<p>{{ info.bio }}</p>
 			</div>
 			<div class="section-title">
-				Favorite Movies
+				Favorite 영화
 			</div>
 			<div class="row">
 				<div class="movies col-3" v-for="movie in favorite_movies.slice(0, 4)" :key="movie.id">
@@ -52,7 +52,7 @@
 			</div>
 		<hr>
 		<div class="section-title">
-			Liked Movies
+			좋아하는 영화
 		</div>
 		<div class="row">
 			<div class="movies col-3" v-for="movie in getRandomMovies(liked_movies, 8)" :key="movie.id">
@@ -63,7 +63,7 @@
 				/>
 			</div>
 		</div>
-		<div class="section-title">{{ username }}'s Reviews</div>
+		<div class="section-title">{{ username }}의 리뷰</div>
 		<div class="user-reviews" v-for="review in reviews" :key="review.id">
 			<MovieReview
 				class="review"

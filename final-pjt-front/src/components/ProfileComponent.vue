@@ -20,7 +20,7 @@
 			<p>{{ store.personBio }}</p>
 		</div>
 	<div class="section-title">
-		Favorite Movies
+		Favorite 영화
 	</div>
 	<div class="row">
       <div class="movies col-3" v-for="movie in store.favoriteMovies.slice(0, 4)" :key="movie.id">
@@ -32,7 +32,7 @@
     </div>
 	<hr>
 	<div class="section-title">
-		Liked Movies
+		좋아하는 영화
 	</div>
 	<div class="row">
 			<div class="movies col-3" v-for="movie in getRandomMovies(store.likedMovies, 8)" :key="movie.id">
@@ -45,7 +45,7 @@
 		</div>
 	<hr>
 	<div class="section-title">
-		User Reviews
+		내가 쓴 리뷰
 	</div>
 	<div class="user-reviews" v-for="review in store.reviewsMovies" :key="review.id">
 		<MovieReview
