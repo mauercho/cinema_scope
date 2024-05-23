@@ -82,6 +82,7 @@ const getOtherUser = function () {
 	})
 	.then((response) => {
 		// console.log(response.data)
+		// console.log(response.data)
 		info.value = response.data
 		favorite_movies.value = response.data.user.favorites
 		liked_movies.value = response.data.user.like_movies
@@ -142,7 +143,7 @@ function getRandomMovies(movies, count) {
 const followUser = function() {
 	axios({
 		method: 'post',
-		url: `${store.API_URL}/accounts/profile/${info.value.id}/follow/`,
+		url: `${store.API_URL}/accounts/profile/${info.value.user.id}/follow/`,
 		headers: {
       'Authorization': `Token ${store.token}`
     }
