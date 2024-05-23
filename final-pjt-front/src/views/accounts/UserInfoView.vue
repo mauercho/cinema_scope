@@ -1,15 +1,17 @@
 <template>
 	<div>
 		<div class="container">
-			{{ info }}
+			<!-- {{ info }}  -->
 			<h3>{{ username }}</h3>
-			<button class="btn btn-outline-primary" @click="followUser">팔로우 버튼</button>
-			<!-- <div v-if="is_followed === false">
-				<button class="btn btn-outline-primary" @click="followUser">팔로우 버튼</button>
+			<p>팔로워 수: {{ followCount }} </p>
+			<p>팔로잉 수: {{ followings_count }}</p>
+			<!-- <button class="btn btn-outline-primary" @click="followUser">팔로우 버튼</button> -->
+			<div v-if="isFollowed">
+				<button class="btn btn-outline-primary" @click="followUser">언팔로우 버튼</button>
 			</div>
 			<div v-else>
-				<button class="btn btn-outline-primary" @click="followUser">언팔로우 버튼</button>
-			</div> -->
+				<button class="btn btn-outline-primary" @click="followUser">팔로우 버튼</button>
+			</div>
 			<h3>자기소개</h3>
 			<p>{{ info.bio }}</p>
 			<h3>favoirte movies</h3>
@@ -48,7 +50,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useMovieStore } from '@/stores/counter'
 import axios from 'axios'
 import MovieCard from '@/components/MovieCardComponent.vue'
@@ -64,7 +66,19 @@ const favorite_movies = ref([])
 const liked_movies = ref([])
 const reviews = ref([])
 const router = useRouter()
-const is_followed = ref(false)
+const followers = ref([])
+const followings = ref([])
+const followers_count = ref(null)
+const followings_count = ref(null)
+const first = ref(null)
+
+const isFollowed = computed(() => {
+	return !first.value
+})
+
+const followCount = computed(() => {
+	return followers_count.value
+})
 
 onMounted(() => {
 	getOtherUser()
@@ -83,45 +97,20 @@ const getOtherUser = function () {
 		url: `${store.API_URL}/accounts/profile/${userId}/`,
 	})
 	.then((response) => {
-		// console.log(response.data)
-		// console.log(response.data)
 		info.value = response.data
 		favorite_movies.value = response.data.user.favorites
 		liked_movies.value = response.data.user.like_movies
 		reviews.value = response.data.user.review_set
 		username.value = response.data.user.username
 	})
-	// .then(() => {
-	// 	axios({
-	// 		method: 'post',
-	// 		url: `${store.API_URL}/accounts/profile/${info.value.id}/follow/`,
-	// 		headers: {
-	// 			'Authorization': `Token ${store.token}`
-	// 		}
-	// 	})
-	// 	.then((response) => {
-	// 		// console.log('팔로우 1성공')
-	// 		// console.log(response)
-	// 		is_followed.value = !response.data.is_followed
-	// 		console.log(is_followed.value)
-	// 	})
-	// 	.catch((error) => {
-	// 		console.log(error)
-	// 	})
-	// })
-	// .then(() => {
-	// 	axios({
-	// 		method: 'post',
-	// 		url: `${store.API_URL}/accounts/profile/${info.value.id}/follow/`,
-	// 		headers: {
-	// 			'Authorization': `Token ${store.token}`
-	// 		}
-	// 	})
-	// 	.then((response) => {
-	// 		console.log('팔로우 2성공')
-	// 		console.log(response)
-	// 	})
-	// })
+	.then(() => {
+		followers.value = info.value.user.followers
+		followings.value = info.value.user.followings
+	})
+	.then(() => {
+		followers_count.value = followers.value.length
+		followings_count.value = followings.value.length
+	})
 	.catch((error) => {
 		console.log(error)
 	})
@@ -152,6 +141,7 @@ const followUser = function() {
 	})
 	.then((response) => {
 		console.log(response)
+		first.value = response.data.is_followed
 	})
 	.catch((error) => {
 		console.log(error)
