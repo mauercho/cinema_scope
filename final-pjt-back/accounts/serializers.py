@@ -23,11 +23,11 @@ class ProfileSerializer(serializers.ModelSerializer):
                 fields = '__all__'
         review_set = ReviewListSerializer(many=True, read_only=True)
         
-        class UserIdSerializer(serializers.ModelSerializer):
-            class Meta:
-                model = User
-                fields = ('id',)
-        followers = UserIdSerializer(many=True, read_only=True)
+        # class UserIdSerializer(serializers.ModelSerializer):
+        #     class Meta:
+        #         model = User
+        #         fields = ('id',)
+        # followers = UserIdSerializer(many=True, read_only=True)
 
         class Meta:
             model = User
