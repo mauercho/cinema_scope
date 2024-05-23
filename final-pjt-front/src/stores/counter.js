@@ -7,6 +7,7 @@ const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY
 const KR_API_KEY = import.meta.env.VITE_KR_MOVIE_API_KEY
 
 export const useMovieStore = defineStore('counter', () => {
+  const likeUsers = ref([])
   const movieId = ref(null)
   const movies = ref([])
   const API_URL = 'http://127.0.0.1:8000'
@@ -16,6 +17,7 @@ export const useMovieStore = defineStore('counter', () => {
   const isProfile = ref(false)
   const personBio = ref(null)
   const likedMovies = ref([])
+  const favorites = ref([])
   const reviewsMovies = ref([])
   const personImage = ref(null)
   const imageUrl = ref(null)
@@ -170,6 +172,6 @@ export const useMovieStore = defineStore('counter', () => {
       console.log(error)
     })
   }
-  return { movies, movieId, getMovies, signUp, logIn, token, isLogin, API_URL, userId, getPerson, logOut, isProfile, personBio, personImage, getPersonProfile, imageUrl, getAllInfoMovies, likedMovies, reviewsMovies, favoriteMovies}
+  return { favorites, likeUsers, movies, movieId, getMovies, signUp, logIn, token, isLogin, API_URL, userId, getPerson, logOut, isProfile, personBio, personImage, getPersonProfile, imageUrl, getAllInfoMovies, likedMovies, reviewsMovies, favoriteMovies}
 }, {persist: true})
 

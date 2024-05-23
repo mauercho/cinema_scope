@@ -3,6 +3,43 @@
   <div class="container d-flex flex-column align-items-center">
     <img :src="getImgPath(movie.poster_path)" alt="" style="width: 20%">
     <h3>{{ movie.title }}</h3>
+    <form @submit.prevent="doLike">
+      <div v-if="isLike===null">
+        <div v-if="!isLiked">
+         <button type="submit" class="btn btn-primary">좋아요</button>
+        </div>
+        <div v-else>
+          <button type="submit" class="btn btn-primary">좋아요 취소</button>
+        </div>
+      </div>
+      <div v-else>
+        <div v-if="!isLike">
+          <button type="submit" class="btn btn-primary">좋아요</button>
+        </div>
+        <div v-else>
+          <button type="submit" class="btn btn-primary">좋아요 취소</button>
+        </div>
+
+      </div>
+    </form>
+    <form @submit.prevent="doFavorite">
+      <div v-if="isFavor == null">
+        <div v-if="!isFavorite">
+          <button type="submit" class="btn btn-primary">Favorite</button>
+        </div>
+        <div v-else>
+          <button type="submit" class="btn btn-primary">Favorite 취소</button>
+        </div>
+      </div>
+      <div v-else>
+        <div v-if="!isFavor">
+          <button type="submit" class="btn btn-primary">Favorite</button>
+        </div>
+        <div v-else>
+          <button type="submit" class="btn btn-primary">Favorite 취소</button>
+        </div>
+      </div>
+    </form>
     <p><span class="fw-bold">개봉일: </span>: {{ movie.release_date }}</p>
     <p><span class="fw-bold">러닝타임: </span> {{ movie.runtime }}분</p>
     <p><span class="fw-bold">TMDB 평점: </span> {{ movie.vote_average }}</p>
@@ -41,10 +78,61 @@ const router = useRouter()
 const review = ref(null)
 const reverseReview = ref(null)
 const allReview = ref(null)
+const tempArr = ref([])
+const isLike = ref(null)
+const isFavor = ref(null)
 const store = useMovieStore()
-defineProps({
-  movie: Object
+
+const doLike = function() {
+  axios({
+    method: 'post',
+    url: `${store.API_URL}/movies/${store.movieId}/likes/`,
+    headers: {
+      'Authorization': `Token ${store.token}`
+    }
+  })
+  .then((response) => {
+    console.log(response.data)
+    isLike.value = response.data.is_liked
+    console.log('좋아요 성공')
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+}
+
+const doFavorite = function() {
+  axios({
+    method: 'post',
+    url: `${store.API_URL}/movies/${store.movieId}/favorites/`,
+    headers: {
+      'Authorization': `Token ${store.token}`
+    }
+  })
+  .then((response) => {
+    console.log(response.data)
+    isFavor.value = response.data.is_favorite
+    console.log(store.favorites)
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+}
+
+const props = defineProps({
+  movie: Object,
 })
+
+const isFavorite = computed(() => {
+  return store.favorites && store.favorites.includes(store.userId)
+})
+
+
+const isLiked = computed(() => {
+  return store.likeUsers && store.likeUsers.includes(store.userId)
+})
+
+
 const getImgPath = (path) => {
   return `https://image.tmdb.org/t/p/w500/${path}`
 }

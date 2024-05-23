@@ -10,12 +10,11 @@
 	</div>
 	<div class="container text-align-center">
 	<h3>favorite movies</h3>
-
 	<div class="row">
       <div v-for="movie in getRandomMovies(store.favoriteMovies, 4)" :key="movie.id" class="col-3">
-        <MovieCard
+				<MovieCard
           :movie="movie"
-          @click="goDetailPage(movie.tmdb_id, movie.id)"
+          @click="goDetailPage(movie.tmdb_id, movie.id, movie.like_users, movie.favorite_users)"
         />
       </div>
     </div>
@@ -31,7 +30,7 @@
 			<div v-for="movie in getRandomMovies(store.likedMovies, 4)" :key="movie.id" class="col-3">
 				<MovieCard
 					:movie="movie"
-					@click="goDetailPage(movie.tmdb_id, movie.id)"
+					@click="goDetailPage(movie.tmdb_id, movie.id, movie.like_users, movie.favorite_users)"
 				/>
 			</div>
 		</div>
@@ -70,9 +69,11 @@ function profileUpdate() {
 	router.push({ name: 'editprofile' })
 }
 
-const goDetailPage = function(tmdbId, moviePk) {
+const goDetailPage = function(tmdbId, moviePk, likeUsers, favorites) {
   router.push(`/${tmdbId}`)
 	store.movieId = moviePk
+	store.likeUsers = likeUsers
+	store.favorites = favorites
 }
 
 function getRandomMovies(movies, count) {

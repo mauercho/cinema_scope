@@ -17,6 +17,7 @@ import {ref, onMounted} from 'vue'
 const route = useRoute()
 const movie = ref([])
 const movieId = route.params.movieId
+const likeUsers = ref([])
 const getMovie = function(movieId) {
     axios({
       method: 'get',

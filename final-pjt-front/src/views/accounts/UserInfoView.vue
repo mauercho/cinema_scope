@@ -17,7 +17,7 @@
       <div v-for="movie in getRandomMovies(favorite_movies, 4)" :key="movie.id" class="col-3">
         <MovieCard
           :movie="movie"
-          @click="goDetailPage(movie.tmdb_id, movie.id)"
+          @click="goDetailPage(movie.tmdb_id, movie.id, movie.like_users, movie.favorite_users)"
         />
       </div>
 			</div>
@@ -27,7 +27,7 @@
 			<div v-for="movie in getRandomMovies(liked_movies, 4)" :key="movie.id" class="col-3">
 				<MovieCard
 					:movie="movie"
-					@click="goDetailPage(movie.tmdb_id, movie.id)"
+					@click="goDetailPage(movie.tmdb_id, movie.id, movie.like_users, movie.favorite_users)"
 				/>
 			</div>
 		</div>
@@ -70,9 +70,11 @@ onMounted(() => {
 	getOtherUser()
 })
 
-const goDetailPage = function(tmdbId, moviePk) {
+const goDetailPage = function(tmdbId, moviePk, likeUsers, favorites) {
   router.push(`/${tmdbId}`)
 	store.movieId = moviePk
+	store.likeUsers = likeUsers
+	store.favorites = favorites
 }
 
 const getOtherUser = function () {
