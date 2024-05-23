@@ -38,17 +38,21 @@
 		</div>
 	<hr>
 	<h3>내가 쓴 리뷰</h3>
-	<div v-if="store.reviewMovies">
-
-	</div>
-	<div v-else>
-		<p>리뷰가 없습니다.</p>
-	</div>
+	<div v-if="store.reviewsMovies.length > 0">
 		<div v-for="review in store.reviewsMovies" :key="review.id">
 			<MovieReview
 				:review="review" class="mb-3 mt-3"
 			/>
 		</div>
+	</div>
+	<div v-else>
+		<p>리뷰가 없습니다.</p>
+	</div>
+		<!-- <div v-for="review in store.reviewsMovies" :key="review.id">
+			<MovieReview
+				:review="review" class="mb-3 mt-3"
+			/>
+		</div> -->
 	</div>
 </template>
 

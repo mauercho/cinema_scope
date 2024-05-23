@@ -2,7 +2,6 @@
 	<div>
 		<div v-if="reverseReview">
 			<div v-for="review in reverseReview" :key="review.id">
-				{{ review }}
 				<hr>
 				<UserReview
 					:review="review" class="mb-3 mt-3"

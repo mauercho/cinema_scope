@@ -1,5 +1,4 @@
 <template>
-  {{ movie }}
   <div class="container d-flex flex-column align-items-center">
     <img :src="getImgPath(movie.poster_path)" alt="" style="width: 20%">
     <h3>{{ movie.title }}</h3>
