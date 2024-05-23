@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<div class="container">
-			<!-- {{ info }}  -->
 			<h3>{{ username }}</h3>
 			<div v-if="first === null">
 				<p>팔로워 수: {{ followers.length }} </p>

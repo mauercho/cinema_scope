@@ -20,9 +20,11 @@ export const useMovieStore = defineStore('counter', () => {
   const favorites = ref([])
   const reviewsMovies = ref([])
   const personImage = ref(null)
+  const loginUserFollowers = ref([])
+  const loginUserFollowings = ref([])
   const imageUrl = ref(null)
   const favoriteMovies = ref([])
-
+  const loginUserName = ref(null)
 
   const isLogin = computed(() => {
     if (token.value === null) {
@@ -54,12 +56,13 @@ export const useMovieStore = defineStore('counter', () => {
     })
     .then((response) => {
       if (response.data.bio !== null) { // 프로필이 있을 떄
+        loginUserName.value = response.data.user.username
         isProfile.value = true
-        console.log('프로필이 있슴.')
+        loginUserFollowers.value = response.data.user.followers
+        loginUserFollowings.value = response.data.user.followings
       }
       else {
-        console.log(userId.value)
-        console.log('없슴.')
+        loginUserName.value = response.data.user.username
         isProfile.value = false
         personBio.value = null
         personImage.value = null
@@ -172,6 +175,6 @@ export const useMovieStore = defineStore('counter', () => {
       console.log(error)
     })
   }
-  return { favorites, likeUsers, movies, movieId, getMovies, signUp, logIn, token, isLogin, API_URL, userId, getPerson, logOut, isProfile, personBio, personImage, getPersonProfile, imageUrl, getAllInfoMovies, likedMovies, reviewsMovies, favoriteMovies}
+  return { loginUserFollowers, loginUserFollowings, loginUserName, favorites, likeUsers, movies, movieId, getMovies, signUp, logIn, token, isLogin, API_URL, userId, getPerson, logOut, isProfile, personBio, personImage, getPersonProfile, imageUrl, getAllInfoMovies, likedMovies, reviewsMovies, favoriteMovies}
 }, {persist: true})
 

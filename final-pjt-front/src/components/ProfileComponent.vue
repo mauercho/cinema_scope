@@ -2,7 +2,9 @@
 	<div class="container">
 		<img v-if="store.personImage" :src="`${store.API_URL}${store.personImage}`" alt="no image">
 		<br>
-		<h3>username</h3>
+		<h3>{{ store.loginUserName }}</h3>
+		<p>팔로워 수: {{ store.loginUserFollowers.length }}</p>
+		<p>팔로잉 수: {{ store.loginUserFollowings.length }}</p>
 		<button class="btn btn-outline-primary" @click="profileUpdate">유저 정보 수정</button>
 		<p>자기소개</p>
 		<p>{{ store.personBio }}</p>
