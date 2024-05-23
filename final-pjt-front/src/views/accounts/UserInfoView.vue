@@ -70,10 +70,9 @@ const followers = ref([])
 const followings = ref([])
 const followers_count = ref(null)
 const followings_count = ref(null)
-const first = ref(null)
 
 const isFollowed = computed(() => {
-	return !first.value
+	return followers.value && followers.value.includes(store.userId)
 })
 
 const followCount = computed(() => {
@@ -107,10 +106,6 @@ const getOtherUser = function () {
 		followers.value = info.value.user.followers
 		followings.value = info.value.user.followings
 	})
-	.then(() => {
-		followers_count.value = followers.value.length
-		followings_count.value = followings.value.length
-	})
 	.catch((error) => {
 		console.log(error)
 	})
@@ -141,7 +136,6 @@ const followUser = function() {
 	})
 	.then((response) => {
 		console.log(response)
-		first.value = response.data.is_followed
 	})
 	.catch((error) => {
 		console.log(error)
