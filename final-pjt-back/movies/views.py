@@ -189,7 +189,7 @@ def generate_prompt(liked_movies):
 
 
 def get_tmdb_data(movie_title):
-    url = f"https://api.themoviedb.org/3/search/movie"
+    url = f"https://api.themoviedb.org/3/search/movie?language=ko-KR"
     params = {
         'api_key': "047195d71080c8a4198669abf6149129",
         'query': movie_title,
