@@ -9,6 +9,23 @@
 			</div>
 		</div>
 	</div>
+	<br>
+	<br>
+	<div class="container">
+		<div class="section-title">
+			랜덤 추천 영화
+		</div>
+		<div class="row">
+			<div class="movies col-3" v-for="movie in getRandomMovies(store.movies, 8)" :key="movie.id">
+					<MovieCard
+						class="movies"
+						:movie="movie"
+						@click="goDetailPage(movie.tmdb_id)"
+					/>
+					</div>
+		</div>	
+		<!-- {{ store.movies }} -->
+	</div>
 </template>
 
 <script setup>
@@ -17,10 +34,12 @@ import { useMovieStore } from '@/stores/counter'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 import DailyMovie from '@/components/DailyMovieComponent.vue'
+import MovieCard from '@/components/MovieCardComponent.vue'
 
 const KR_API_KEY = import.meta.env.VITE_KR_MOVIE_API_KEY
 const router = useRouter()
 const dailymovies = ref([])
+const store = useMovieStore()
 
 // const doaction = function (){
 // 	router.push({name: 'userdetail', params: {userId: 4}})
@@ -28,7 +47,13 @@ const dailymovies = ref([])
 
 onMounted(() => {
 	nowFilmingMovie()
+	store.getMovies()
 })
+
+const goDetailPage = function(tmdbId)
+{
+	router.push(`/${tmdbId}`)
+}
 
 const getYesterdayDate = function() {
     const date = new Date()
@@ -54,6 +79,23 @@ const nowFilmingMovie = function () {
 		console.log(error)
 	})
 }
+
+function getRandomMovies(movies, count) {
+    // Copy the array to avoid modifying the original
+    const copiedMovies = [...movies]
+
+    // Shuffle the array
+    for (let i = copiedMovies.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      const temp = copiedMovies[i]
+      copiedMovies[i] = copiedMovies[j]
+      copiedMovies[j] = temp
+    }
+
+    // Return the first `count` elements
+    return copiedMovies.slice(0, count)
+  }
+
 </script>
 
 <style scoped>
@@ -109,4 +151,35 @@ const nowFilmingMovie = function () {
 		height: 200px;
 		border-radius: 10px;
 }
+
+.section-title {
+		font-size: 25px;
+		margin: 30px 0 10px;
+}
+
+.movies {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+}
+.movies .movie {
+		width: 200px;
+		margin: 10px;
+		border-radius: 10px;
+		overflow: hidden;
+		background-color: #fff;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		text-align: center;
+}
+.movies .movie img {
+		width: 100%;
+		height: 300px;
+		object-fit: cover;
+}
+.movies .movie-title {
+		padding: 10px;
+		font-size: 16px;
+		color: #333;
+}
+
 </style>
