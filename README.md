@@ -20,11 +20,12 @@
 ## 2. 목표 서비스 구현 및 실제 구현 정도
 
 #### 사용자가 좋아하는 영화를 기반으로 비슷한 영화 추천
-- 
+- 좋아요를 누른 데이터를 기반으로 GPT가 사용자에게 영화를 추천
 - 사용자의 데이터가 많아질 수록 추천 데이터가 정확해질 것으로 기대
 
 #### 사용자 간 팔로우와 프로필 기능
-
+- 팔로우한 사람의 favorite 영화와 좋아요 누른 영화를 확인 할 수 있음
+- 리뷰 등을 통해 소통할 수 있음
 
 ## 3. 데이터베이스 모델링 (ERD)
 ![alt text](image.png)
@@ -49,7 +50,7 @@ def recommend(request, user_pk):
     liked_movie_titles = [movie.original_title for movie in liked_movies]
     prompt = generate_prompt(liked_movie_titles)
     # GPT에게 전달할 프롬프트 생성
-    
+
     response = openai.ChatCompletion.create(
         model="gpt-4o",
         messages=[
@@ -89,7 +90,7 @@ def generate_prompt(liked_movies):
     print('prompt', prompt)
     return prompt
 
-# 추천받은 영화의 제목들을 TMDB의 search API로 검색 
+# 추천받은 영화의 제목들을 TMDB의 search API로 검색
 def get_tmdb_data(movie_title):
     url = f"https://api.themoviedb.org/3/search/movie?language=ko-KR"
     params = {
@@ -113,5 +114,9 @@ def get_tmdb_data(movie_title):
 
 ## 5. 핵심 기능에 대한 설명
 
+다른 유저의 프로필을 통해 favorite과 좋아요 누른 영화를 확인할 수 있고 영화 디테일 페이지에 있는 리뷰 등을 통해 다른 유저의 영화에 대한 감상평을 알 수 있게 했다.
+
 ## 6. 기타 (느낀 점, 후기 등)
 
+### 조민우
+설계의 중요성을 알고 있었지만 내가 생각한것 이상으로 중요하다는 것을 깨달았다. 코드를 짜면 짤수록 설계만 잘했다면 쉽게 구현했을 것 같다는 생각을 많이 했다. 처음해보는 개발이었고 처음해보는 팀프로젝트였는데 다음에 더 잘할 것 같다는 느낌이 들었다.
