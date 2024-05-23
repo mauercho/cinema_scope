@@ -181,7 +181,7 @@ def generate_prompt(liked_movies):
     liked_movies_str = ", ".join(liked_movies)
     prompt = (
         f"I have enjoyed the following movies: {liked_movies_str}. " +
-        "Can you recommend me at least 5 similar movies that I might like? " +
+        "Can you recommend me at least 8 similar movies that I might like? " +
         "Please provide the recommendations only 'title' without number."
     )
     print('prompt', prompt)
