@@ -1,37 +1,33 @@
 
 <template>
   <header>
-    <div class ="container">
-      <nav class="navbar navbar-expand navbar-light bg-light">
-        <Router-link class="navbar-brand" :to="{ name: 'home' }"><img src="@/assets/logo.png" alt="Logo" id="logo"></Router-link>
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <Router-link class="nav-link" :to="{ name: 'now-filming-movie' }">현재상영중인 영화</Router-link>
-            </li>
-            <li class="nav-item">
-              <Router-link class="nav-link" :to="{ name: 'recommended' }">영화 추천받기</Router-link>
-            </li>
-            <li class="nav-item">
-              <!-- <Router-link class="nav-link" :to="{ name: 'myinfo', params: {userid: store.userId}}">내 프로필</Router-link> -->
-              <Router-link class="nav-link" :to="{ name: 'myinfo'}">내 프로필</Router-link>
-            </li>
-          </ul>
-          <div v-if="store.token === null">
-            <Router-link class="btn btn-outline-primary mr-5" :to="{ name: 'signup' }">회원가입</Router-link>
-            <Router-link class="btn btn-outline-secondary" :to="{ name: 'login' }">로그인</Router-link>
-          </div>
-          <div v-else>
-            <Router-link class="btn btn-outline-primary mr-5" :to="{ name: 'myinfo'}">내 정보</Router-link>
-            <!-- <Router-link class="btn btn-outline-secondary" :to="{name: 'logout'}">로그아웃</Router-link> -->
-            <button class="btn btn-outline-secondary" @click="handleLogout">로그아웃</button>
-          </div>
-          <!-- <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="영화 검색" aria-label="Search">
-          </form> -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <Router-link class="navbar-brand" :to="{ name: 'home' }"><img src="@/assets/logo.png" alt="Logo" id="logo">CINEMA SCOPE</Router-link>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-lg-0">
+              <li class="nav-item">
+                <Router-link class="nav-link" :to="{ name: 'now-filming-movie' }">BOX OFFICE</Router-link>
+              </li>
+              <li class="nav-item">
+                <Router-link class="nav-link" :to="{ name: 'recommended' }">RECOMMENDATION</Router-link>
+              </li>
+              <li class="nav-item">
+                <Router-link class="nav-link" :to="{ name: 'myinfo'}">My Profile</Router-link>
+              </li>
+              <li class="nav-item">
+                <Router-link class="nav-link" :to="{ name: 'signup' }">Sign-In</Router-link>
+              </li>
+            </ul>
+            <div v-if="store.token === null" class="d-flex">
+              <Router-link class="btn btn-primary" :to="{ name: 'login' }">Login</Router-link>
+            </div>
+            <div v-else class="d-flex">
+              <button class="btn btn-primary" @click="handleLogout">Logout</button>
+            </div>
         </div>
+      </div>
       </nav>
-    </div>
   </header>
   <Router-view />
 </template>
@@ -55,65 +51,38 @@ const handleLogout = () => {
   width: 50px; /* 원하는 너비로 설정 */
   height: auto; /* 높이는 자동으로 설정하여 비율을 유지 */
 }
-/* header {
-  line-height: 1.5;
-  max-height: 100vh;
+.navbar-brand {
+    font-weight: bold;
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.form-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+.form-control {
+    background-color: #f1f3f5;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
 }
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
+.btn-primary {
+    background-color: #4a6cf7;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
 }
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+.btn-primary:hover {
+    background-color: #3b5bdb;
 }
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+.text-center a {
+    color: #6c757d;
+    text-decoration: none;
 }
-
-nav a:first-of-type {
-  border: 0;
+.text-center a:hover {
+    text-decoration: underline;
 }
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-} */
 </style>
