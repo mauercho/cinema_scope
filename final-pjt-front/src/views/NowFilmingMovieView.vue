@@ -2,16 +2,16 @@
 <template>
 	<div>
 		<div class="container">
-		<h1 class="mt-5">Currently Showing Movies</h1>
-		<h5 class="mt-4">Today's BoxOffice</h5>
+		<h1 class="mt-5">현재 상영 중인 영화들</h1>
+		<h5 class="mt-4">오늘의 박스오피스</h5>
 		<div class="table-responsive">
 		<table class="table table-bordered mt-3">
 				<thead>
 					<tr>
-						<th>Movie Name</th>
-						<th>Director</th>
-						<th>GradeNm</th>
-						<th>Actors</th>
+						<th>영화 이름</th>
+						<th>감독</th>
+						<th>관람 등급</th>
+						<th>배우들</th>
 					</tr>
 				</thead>
 				<tbody>
